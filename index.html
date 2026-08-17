@@ -1165,7 +1165,8 @@ import {
   signInWithPopup,
   signOut,
   onAuthStateChanged,
-  updateProfile
+  updateProfile,
+  deleteUser
 } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
 
 const firebaseConfig = {
@@ -1229,7 +1230,11 @@ function setRegisterRole(role){
   document.getElementById('roleCitizenBtn').classList.toggle('active', role === 'citizen');
   document.getElementById('roleAdminBtn').classList.toggle('active', role === 'admin');
   document.getElementById('regPurokWrap').style.display = role === 'citizen' ? 'block' : 'none';
-  document.getElementById('regAdminCodeWrap').style.display = role === 'admin' ? 'block' : 'none';
+
+  const adminCodeWrap = document.getElementById('regAdminCodeWrap');
+  const adminCodeInput = document.getElementById('regAdminCode');
+  adminCodeWrap.style.display = role === 'admin' ? 'block' : 'none';
+  adminCodeInput.required = role === 'admin';
 }
 
 function showAuthError(msg){
@@ -1265,6 +1270,7 @@ function friendlyAuthError(err){
   if (code.includes('popup-blocked')) return 'Your browser blocked the Google sign-in window. Please allow pop-ups and try again.';
   if (code.includes('account-exists-with-different-credential')) return 'An account already exists with this email. Sign in using the original method.';
   if (code.includes('network-request-failed')) return 'Network error. Check your internet connection and try again.';
+  if (code.includes('permission-denied')) return 'Firestore blocked the account profile. Update the Firestore rules for the users collection, then try again.';
   return err && err.message ? err.message : 'Something went wrong. Please try again.';
 }
 
@@ -1397,6 +1403,7 @@ async function handleRegister(e){
   e.preventDefault();
   hideAuthError();
   hideAuthSuccess();
+
   const name = document.getElementById('regName').value.trim();
   const email = document.getElementById('regEmail').value.trim();
   const password = document.getElementById('regPassword').value;
@@ -1404,39 +1411,48 @@ async function handleRegister(e){
   const purok = document.getElementById('regPurok').value;
   const adminCode = document.getElementById('regAdminCode').value.trim();
 
-  if (password !== confirm) { showAuthError("Passwords don't match."); return; }
+  if (password !== confirm) {
+    showAuthError("Passwords don't match.");
+    return;
+  }
 
-  // Determine the ACTUAL role from the invite code itself, rather than only
-  // trusting whichever toggle button happens to be highlighted. This avoids
-  // silently creating a "citizen" account when someone types a valid admin
-  // code but forgot to click the "Barangay Admin" toggle first.
+  // Normalize the invite so harmless spaces/case differences do not make
+  // a valid code fail. The role still comes from the selected Admin toggle.
   let finalRole = 'citizen';
+  let normalizedAdminCode = '';
+
   if (registerRole === 'admin') {
-    if (adminCode.toUpperCase() !== ADMIN_INVITE_CODE) {
-      showAuthError('Invalid admin invite code.');
+    normalizedAdminCode = adminCode.replace(/\s+/g, '').toUpperCase();
+
+    if (normalizedAdminCode !== ADMIN_INVITE_CODE) {
+      showAuthError('Invalid admin invite code. Enter the exact code given by the barangay office.');
       return;
     }
+
     finalRole = 'admin';
   }
 
   const btn = document.getElementById('registerBtn');
-  btn.disabled = true; btn.textContent = 'Creating account...';
+  btn.disabled = true;
+  btn.textContent = 'Creating account...';
+
+  let cred = null;
+
   try {
-    const cred = await createUserWithEmailAndPassword(auth, email, password);
+    cred = await createUserWithEmailAndPassword(auth, email, password);
     await updateProfile(cred.user, { displayName: name });
+
+    // The invite is also sent to Firestore so the security rules can verify
+    // that an Admin profile was created with the approved invite.
     await setDoc(doc(db, "users", cred.user.uid), {
       name,
       email,
       role: finalRole,
       purok: finalRole === 'citizen' ? purok : null,
-      adminInviteCode: finalRole === 'admin' ? ADMIN_INVITE_CODE : null,
+      adminInviteCode: finalRole === 'admin' ? normalizedAdminCode : null,
       createdAt: serverTimestamp()
     });
 
-    // Require proof the person actually owns this inbox before letting them
-    // in. Send the verification link, then sign them back out — the
-    // account record already exists, but onAuthStateChanged/handleLogin
-    // won't let it through until emailVerified is true.
     await sendEmailVerification(cred.user);
     await signOut(auth);
 
@@ -1445,12 +1461,25 @@ async function handleRegister(e){
     setAuthTab('login');
     showAuthSuccess('Account created! We sent a verification link to ' + email + '. Please verify your email, then sign in.');
   } catch (err) {
+    console.error('Registration failed:', err);
+
+    // If Firebase Auth succeeded but Firestore rejected the profile, remove
+    // the orphaned Auth account so the same email can be registered again
+    // after the Firestore rules are fixed.
+    if (cred && cred.user) {
+      try {
+        await deleteUser(cred.user);
+      } catch (cleanupErr) {
+        console.warn('Could not clean up the partially created account:', cleanupErr);
+      }
+    }
+
     showAuthError(friendlyAuthError(err));
   } finally {
-    btn.disabled = false; btn.textContent = 'Create Account';
+    btn.disabled = false;
+    btn.textContent = 'Create Account';
   }
 }
-
 async function logout(){
   const logoutButtons = document.querySelectorAll('[onclick="logout()"]');
   logoutButtons.forEach(btn => {
