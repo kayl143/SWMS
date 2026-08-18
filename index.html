@@ -1196,6 +1196,13 @@ const ADMIN_INVITE_CODE = "PANADTALAN-ADMIN-2026";
 
 // ---------------- AUTH ----------------
 let registerRole = 'citizen';
+// Guards against a race with onAuthStateChanged: createUserWithEmailAndPassword
+// signs the new user in immediately, which fires onAuthStateChanged in parallel
+// while handleRegister is still writing the Firestore profile and sending the
+// verification email. Without this flag, onAuthStateChanged's own "unverified
+// user" safety net can sign the user out mid-registration, causing the
+// verification email to silently fail and the Firestore write to be rejected.
+let isRegisteringNewAccount = false;
 
 function setAuthTab(which){
   const isLogin = which === 'login';
@@ -1437,6 +1444,7 @@ async function handleRegister(e){
   btn.textContent = 'Creating account...';
 
   let cred = null;
+  isRegisteringNewAccount = true;
 
   try {
     cred = await createUserWithEmailAndPassword(auth, email, password);
@@ -1476,6 +1484,7 @@ async function handleRegister(e){
 
     showAuthError(friendlyAuthError(err));
   } finally {
+    isRegisteringNewAccount = false;
     btn.disabled = false;
     btn.textContent = 'Create Account';
   }
@@ -1520,6 +1529,11 @@ async function logout(){
 }
 
 onAuthStateChanged(auth, async (user) => {
+  // handleRegister owns the session while a new account is being created
+  // (writing the Firestore profile, sending the verification email, then
+  // signing out on its own). Let it finish instead of racing it here.
+  if (isRegisteringNewAccount) return;
+
   const authGate = document.getElementById('authGate');
   const residentPortal = document.getElementById('portal-resident');
   const adminPortal = document.getElementById('portal-admin');
