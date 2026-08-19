@@ -1203,6 +1203,13 @@ let registerRole = 'citizen';
 // user" safety net can sign the user out mid-registration, causing the
 // verification email to silently fail and the Firestore write to be rejected.
 let isRegisteringNewAccount = false;
+// Same race as above, but for the "Didn't get a verification email?" link:
+// signing in briefly to grab a fresh user handle also fires onAuthStateChanged,
+// whose own unverified-account safety net (sign out + show its own error) can
+// run in parallel and stomp on the resend flow's own signOut/success message.
+// This flag tells onAuthStateChanged to sit out while handleResendVerification
+// manages the session itself.
+let isResendingVerification = false;
 
 function setAuthTab(which){
   const isLogin = which === 'login';
@@ -1345,6 +1352,8 @@ async function handleResendVerification(){
     return;
   }
 
+  isResendingVerification = true;
+
   try {
     // Sign in briefly just to get a fresh user handle to send the link to,
     // then sign back out immediately — same rule as everywhere else,
@@ -1359,6 +1368,8 @@ async function handleResendVerification(){
     showAuthSuccess('Verification email resent to ' + email + '. Check your inbox (and spam folder).');
   } catch (err) {
     showAuthError(friendlyAuthError(err));
+  } finally {
+    isResendingVerification = false;
   }
 }
 
@@ -1532,7 +1543,7 @@ onAuthStateChanged(auth, async (user) => {
   // handleRegister owns the session while a new account is being created
   // (writing the Firestore profile, sending the verification email, then
   // signing out on its own). Let it finish instead of racing it here.
-  if (isRegisteringNewAccount) return;
+  if (isRegisteringNewAccount || isResendingVerification) return;
 
   const authGate = document.getElementById('authGate');
   const residentPortal = document.getElementById('portal-resident');
