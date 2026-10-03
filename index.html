@@ -1936,8 +1936,7 @@ onAuthStateChanged(auth, async (user) => {
     switchPortal('admin');
   } else {
     document.getElementById('residentUserName').textContent = name;
-    const repNameField = document.getElementById('repName');
-    if (repNameField && !repNameField.value) repNameField.value = name;
+    // Name field left blank for resident to fill in manually
     switchPortal('resident');
   }
   syncHeaderHeight();
@@ -2439,10 +2438,14 @@ function renderReports() {
 
   const myList = document.getElementById('myReportsList');
   if (myList) {
-    myList.innerHTML = liveReports.length ? liveReports.map(r => {
+    const currentUid = auth.currentUser ? auth.currentUser.uid : null;
+    // Residents only see their own reports; admins see all
+    const visibleReports = window.currentUserRole === 'admin'
+      ? liveReports
+      : liveReports.filter(r => r.userId === currentUid || myReports.find(m => m.id === r.id));
+    myList.innerHTML = visibleReports.length ? visibleReports.map(r => {
       const mine = myReports.find(m => m.id === r.id);
       const highlight = mine && mine.unseen ? ' unseen-update' : '';
-      const yourTag = mine ? '<span class="your-report-tag" style="display:inline-block;margin-bottom:4px;">● Your report</span><br>' : '';
       const displayLocation = r.locationName || r.landmark || r.purok;
       return `
       <div class="report-card${highlight}">
@@ -2453,7 +2456,6 @@ function renderReports() {
             <div class="report-purok-tag">📍 ${r.purok}</div>
           </div>
           <div style="text-align:right;">
-            ${yourTag}
             <span class="status-pill status-${r.status || 'pending'}">
               ${statusLabel(r.status || 'pending')}
             </span>
@@ -2562,6 +2564,7 @@ async function submitReport(e) {
 
   try {
     const reportData = {
+      userId: auth.currentUser ? auth.currentUser.uid : null,
       name,
       purok,
       type,
