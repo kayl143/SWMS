@@ -453,47 +453,38 @@
   .route-form-grid{display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:12px;align-items:end;}
   .table-scroll{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;}
 
-  /* ---- Report Stepper (4 Stages) ---- */
-  .report-stepper-wrap{
-    margin:14px 0 12px;padding:12px 14px;
-    background:var(--bg);border-radius:8px;border:1px solid var(--line);
+  /* ---- Clean Report Status Bar (Progress Track) ---- */
+  .report-status-bar{
+    margin:12px 0 10px;padding:12px 14px;
+    background:var(--bg);border-radius:10px;border:1px solid var(--line);
   }
-  .stepper-title{
-    font-family:'IBM Plex Mono',monospace;font-size:11px;
-    text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:10px;
+  .status-stage-header{
+    display:flex;justify-content:space-between;align-items:center;
+    margin-bottom:8px;
   }
-  .report-stepper{
-    display:flex;align-items:center;justify-content:space-between;position:relative;
+  .status-step-count{
+    font-size:11px;color:var(--muted);font-weight:600;
   }
-  .stepper-step{
-    display:flex;flex-direction:column;align-items:center;gap:4px;
-    z-index:2;flex:1;text-align:center;
+  .status-track{
+    height:7px;background:var(--line);border-radius:999px;
+    overflow:hidden;margin-bottom:8px;
   }
-  .stepper-circle{
-    width:24px;height:24px;border-radius:50%;
-    display:flex;align-items:center;justify-content:center;
-    font-size:11px;font-weight:700;background:#ded7c8;color:var(--muted);
-    transition:all .2s ease;
+  .status-track-fill{
+    height:100%;background:linear-gradient(90deg, var(--forest), var(--ochre));
+    border-radius:999px;transition:width .4s ease;
   }
-  .stepper-label{font-size:11px;font-weight:600;color:var(--muted);line-height:1.2;}
-  .stepper-line{
-    flex:1;height:3px;background:#ded7c8;
-    margin:0 -4px 18px;z-index:1;transition:background .2s ease;
+  .status-steps-dots{
+    display:flex;justify-content:space-between;font-size:10px;
+    color:var(--muted);font-weight:500;
   }
-  .stepper-step.step-done .stepper-circle{background:var(--forest);color:#fff;}
-  .stepper-step.step-done .stepper-label{color:var(--forest);}
-  .stepper-line.line-done{background:var(--forest);}
-  .stepper-step.step-current .stepper-circle{
-    background:var(--ochre);color:#fff;
-    box-shadow:0 0 0 3px rgba(217,164,65,0.3);
-  }
-  .stepper-step.step-current .stepper-label{color:var(--ink);font-weight:700;}
+  .step-dot-item.done{color:var(--forest);font-weight:600;}
+  .step-dot-item.current{color:var(--ink);font-weight:700;}
 
   /* ---- Admin Remarks Box ---- */
   .admin-remark-box{
     margin-top:12px;padding:12px 14px;
     background:#FBF6EB;border-left:4px solid var(--ochre);
-    border-radius:0 6px 6px 0;
+    border-radius:0 8px 8px 0;
   }
   .admin-remark-header{
     display:flex;justify-content:space-between;align-items:center;
@@ -512,7 +503,7 @@
 
   /* ---- Photo Upload & Thumbnails ---- */
   .photo-upload-zone{
-    border:2px dashed var(--line);border-radius:8px;
+    border:2px dashed var(--line);border-radius:10px;
     background:var(--paper);transition:all .15s ease;cursor:pointer;
   }
   .photo-upload-zone:hover{border-color:var(--forest);background:#FAF7F0;}
@@ -524,43 +515,64 @@
   .photo-remove-btn:hover{background:var(--clay);}
   .report-photo-preview{margin:10px 0;cursor:pointer;display:inline-block;}
   .report-card-img{
-    max-height:140px;max-width:100%;border-radius:6px;
+    max-height:140px;max-width:100%;border-radius:8px;
     object-fit:cover;box-shadow:0 2px 8px rgba(0,0,0,0.1);display:block;
   }
   .photo-tap-hint{display:block;font-size:11px;color:var(--muted);margin-top:4px;}
   .admin-table-photo{
-    width:48px;height:48px;border-radius:4px;
+    width:48px;height:48px;border-radius:6px;
     object-fit:cover;cursor:pointer;box-shadow:0 1px 4px rgba(0,0,0,0.15);
     transition:transform .12s ease;display:block;
   }
   .admin-table-photo:hover{transform:scale(1.08);}
 
-  /* ---- Location Pin / GPS & Landmark ---- */
+  /* ---- Location: Actual Name & Presets ---- */
+  .location-quick-chips{
+    display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:8px;
+  }
+  .location-chips-label{
+    font-size:11px;font-family:'IBM Plex Mono',monospace;color:var(--muted);
+    text-transform:uppercase;margin-right:2px;
+  }
+  .loc-chip{
+    background:var(--paper);border:1px solid var(--line);border-radius:999px;
+    padding:5px 11px;font-size:12px;font-weight:500;cursor:pointer;
+    color:var(--ink);transition:all .15s ease;user-select:none;
+  }
+  .loc-chip:hover, .loc-chip.active{
+    background:var(--forest-pale);border-color:var(--forest);color:var(--forest);
+    font-weight:600;
+  }
   .location-badge{
     display:inline-flex;align-items:center;gap:6px;
     background:var(--forest-pale);color:var(--forest);
-    padding:6px 12px;border-radius:999px;font-size:12px;
-    font-weight:600;font-family:'IBM Plex Mono',monospace;
+    padding:6px 12px;border-radius:999px;font-size:12.5px;
+    font-weight:600;
   }
   .location-badge .clear-btn{
     background:none;border:none;color:var(--forest);
     font-size:12px;cursor:pointer;padding:0 2px;opacity:.75;
   }
   .location-badge .clear-btn:hover{opacity:1;}
-  .map-pin-btn{
-    display:inline-flex;align-items:center;gap:4px;
-    font-size:12px;font-weight:600;color:var(--forest);text-decoration:none;
-    background:var(--forest-pale);padding:4px 10px;border-radius:999px;
-    margin-top:4px;transition:background .15s ease;
+  .report-location-badge{
+    display:inline-flex;align-items:center;gap:6px;
+    background:var(--forest-pale);color:var(--forest);
+    padding:5px 12px;border-radius:999px;font-size:12px;
+    font-weight:600;margin:6px 0 8px;flex-wrap:wrap;
   }
-  .map-pin-btn:hover{background:#d4e0d1;text-decoration:underline;}
-  .report-location-box{margin:8px 0;font-size:13px;}
+  .map-link-chip{
+    color:var(--forest);text-decoration:none;font-weight:700;
+    margin-left:4px;background:#fff;padding:2px 8px;
+    border-radius:999px;border:1px solid rgba(31,61,43,0.25);
+    font-size:11px;display:inline-flex;align-items:center;gap:2px;
+  }
+  .map-link-chip:hover{background:var(--ochre-pale);color:#8A611E;}
 
   /* ---- Resident Report Card ---- */
   .report-card{
     background:var(--card);border:1px solid var(--line);
-    border-radius:8px;padding:16px;margin-bottom:14px;
-    box-shadow:0 1px 4px rgba(0,0,0,0.04);
+    border-radius:12px;padding:16px;margin-bottom:14px;
+    box-shadow:0 2px 8px rgba(0,0,0,0.03);
   }
   .report-card.unseen-update{border-left:4px solid var(--ochre);background:#FAF8F2;}
   .report-card-head{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:8px;}
@@ -573,10 +585,10 @@
   .modal-backdrop{
     position:fixed;inset:0;background:rgba(0,0,0,0.55);
     z-index:500;display:flex;align-items:center;justify-content:center;
-    padding:16px;backdrop-filter:blur(2px);animation:fadein .2s ease;
+    padding:16px;backdrop-filter:blur(3px);animation:fadein .2s ease;
   }
   .modal-card{
-    background:var(--card);border-radius:10px;width:100%;max-width:500px;
+    background:var(--card);border-radius:12px;width:100%;max-width:500px;
     box-shadow:0 16px 40px rgba(0,0,0,0.25);overflow:hidden;
     display:flex;flex-direction:column;max-height:90vh;
   }
@@ -594,7 +606,7 @@
   }
   .status-radio-group{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;}
   .status-radio-option{
-    border:1.5px solid var(--line);border-radius:8px;padding:10px;
+    border:1.5px solid var(--line);border-radius:10px;padding:10px;
     display:flex;flex-direction:column;gap:5px;cursor:pointer;
     transition:all .15s ease;background:var(--paper);
   }
@@ -1030,19 +1042,25 @@
               </select>
             </div>
             <div>
-              <label class="field-label">Specific Landmark / Location</label>
-              <input type="text" id="repLandmark" placeholder="e.g. Near Panadtalan Elementary School, corner Purok 2">
-            </div>
-            <div>
-              <label class="field-label">Pin Location (GPS)</label>
-              <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
-                <button type="button" class="btn btn-outline" id="btnPinLocation" onclick="captureLocation()" style="display:inline-flex;align-items:center;gap:6px;padding:9px 14px;font-size:13px;">
-                  <span>📍</span> <span id="pinBtnText">Get Current Location</span>
+              <label class="field-label">Location / Landmark Name</label>
+              <div style="display:flex;gap:8px;margin-bottom:8px;">
+                <input type="text" id="repLandmark" placeholder="e.g. Near Panadtalan Elementary School, corner Purok 2" style="flex:1;">
+                <button type="button" class="btn btn-outline" id="btnPinLocation" onclick="captureLocation()" style="display:inline-flex;align-items:center;gap:6px;padding:9px 13px;font-size:13px;white-space:nowrap;flex-shrink:0;" title="Detect location name">
+                  <span>📍</span> <span id="pinBtnText">Detect Location</span>
                 </button>
-                <div id="locationBadge" style="display:none;" class="location-badge">
-                  <span id="locationCoordsText"></span>
-                  <button type="button" onclick="clearLocation()" class="clear-btn" title="Remove location">✕</button>
-                </div>
+              </div>
+              <div id="locationBadge" style="display:none;margin-bottom:8px;" class="location-badge">
+                <span id="locationCoordsText"></span>
+                <button type="button" onclick="clearLocation()" class="clear-btn" title="Clear location">✕</button>
+              </div>
+              <div class="location-quick-chips">
+                <span class="location-chips-label">Popular Spots:</span>
+                <button type="button" class="loc-chip" onclick="selectPresetLocation('Panadtalan Barangay Hall')">Barangay Hall</button>
+                <button type="button" class="loc-chip" onclick="selectPresetLocation('Panadtalan Elementary School')">Elem. School</button>
+                <button type="button" class="loc-chip" onclick="selectPresetLocation('Covered Basketball Court')">Covered Court</button>
+                <button type="button" class="loc-chip" onclick="selectPresetLocation('Riverside Bridge')">Riverside Bridge</button>
+                <button type="button" class="loc-chip" onclick="selectPresetLocation('Sayre Highway Crossing')">Highway Crossing</button>
+                <button type="button" class="loc-chip" onclick="selectPresetLocation('Public Market')">Public Market</button>
               </div>
             </div>
             <div>
@@ -2200,6 +2218,24 @@ function clearPhoto(e) {
   if (previewImg) previewImg.src = '';
 }
 
+let currentLocationName = '';
+
+function selectPresetLocation(name) {
+  const landmarkInput = document.getElementById('repLandmark');
+  if (landmarkInput) landmarkInput.value = name;
+  currentLocationName = name;
+
+  document.querySelectorAll('.loc-chip').forEach(c => {
+    c.classList.toggle('active', c.textContent.trim() === name || c.textContent.includes(name));
+  });
+
+  const badge = document.getElementById('locationBadge');
+  const text = document.getElementById('locationCoordsText');
+  if (text) text.textContent = `📍 ${name}`;
+  if (badge) badge.style.display = 'inline-flex';
+  showToast(`Location selected: ${name}`);
+}
+
 function captureLocation() {
   if (!navigator.geolocation) {
     showToast("Geolocation is not supported by your browser.");
@@ -2211,25 +2247,55 @@ function captureLocation() {
   if (btn) btn.disabled = true;
 
   navigator.geolocation.getCurrentPosition(
-    (pos) => {
+    async (pos) => {
       if (btn) btn.disabled = false;
-      if (btnText) btnText.textContent = "Location Pinned ✓";
+      const lat = pos.coords.latitude;
+      const lng = pos.coords.longitude;
       currentCoords = {
-        lat: Number(pos.coords.latitude.toFixed(6)),
-        lng: Number(pos.coords.longitude.toFixed(6)),
-        accuracy: Math.round(pos.coords.accuracy)
+        lat: Number(lat.toFixed(6)),
+        lng: Number(lng.toFixed(6))
       };
+
+      let placeName = '';
+      try {
+        if (btnText) btnText.textContent = "Finding name...";
+        const resp = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json&addressdetails=1`, {
+          headers: { 'Accept-Language': 'en' }
+        });
+        if (resp.ok) {
+          const data = await resp.json();
+          const addr = data.address || {};
+          const street = addr.road || addr.pedestrian || addr.suburb || addr.village || addr.neighbourhood || addr.hamlet || '';
+          const town = addr.town || addr.city || addr.municipality || 'Barangay Panadtalan';
+          placeName = street ? `${street}, ${town}` : (data.name ? `${data.name}, ${town}` : town);
+        }
+      } catch (err) {
+        console.warn("Reverse geocode warning:", err);
+      }
+
+      if (!placeName) {
+        const purokEl = document.getElementById('repPurok');
+        const purokVal = purokEl ? purokEl.value.split('—')[0].trim() : 'Purok';
+        placeName = `${purokVal}, Barangay Panadtalan`;
+      }
+
+      currentLocationName = placeName;
+      if (btnText) btnText.textContent = "Pinned ✓";
+
+      const landmarkInput = document.getElementById('repLandmark');
+      if (landmarkInput) landmarkInput.value = placeName;
+
       const badge = document.getElementById('locationBadge');
       const text = document.getElementById('locationCoordsText');
-      if (text) text.textContent = `📍 ${currentCoords.lat}, ${currentCoords.lng}`;
+      if (text) text.textContent = `📍 ${placeName}`;
       if (badge) badge.style.display = 'inline-flex';
-      showToast("Location successfully pinned!");
+      showToast(`Location detected: ${placeName}`);
     },
     (err) => {
       if (btn) btn.disabled = false;
-      if (btnText) btnText.textContent = "Get Current Location";
+      if (btnText) btnText.textContent = "Detect Location";
       console.warn("Geolocation error:", err);
-      showToast("Could not get location. You can specify a landmark below.");
+      showToast("Could not detect GPS. Please pick a preset or type the landmark name.");
     },
     { enableHighAccuracy: true, timeout: 10000, maximumAge: 30000 }
   );
@@ -2237,12 +2303,14 @@ function captureLocation() {
 
 function clearLocation() {
   currentCoords = null;
+  currentLocationName = '';
   const badge = document.getElementById('locationBadge');
   if (badge) badge.style.display = 'none';
   const btn = document.getElementById('btnPinLocation');
   const btnText = document.getElementById('pinBtnText');
   if (btn) btn.disabled = false;
-  if (btnText) btnText.textContent = "Get Current Location";
+  if (btnText) btnText.textContent = "Detect Location";
+  document.querySelectorAll('.loc-chip').forEach(c => c.classList.remove('active'));
 }
 
 function formatTime(ts) {
@@ -2253,27 +2321,31 @@ function formatTime(ts) {
 
 function renderStepper(currentStatus) {
   const STAGES = [
-    { key: 'pending', label: 'Pending' },
-    { key: 'acknowledged', label: 'Acknowledged' },
-    { key: 'progress', label: 'In Progress' },
-    { key: 'resolved', label: 'Resolved' }
+    { key: 'pending', label: '1. Filed' },
+    { key: 'acknowledged', label: '2. Acknowledged' },
+    { key: 'progress', label: '3. In Progress' },
+    { key: 'resolved', label: '4. Resolved' }
   ];
   let curIdx = STAGES.findIndex(s => s.key === currentStatus);
   if (curIdx === -1) curIdx = 0;
+  const pct = Math.round(((curIdx + 1) / STAGES.length) * 100);
 
-  return STAGES.map((s, idx) => {
-    const isDone = idx < curIdx;
-    const isCurrent = idx === curIdx;
-    const cls = isCurrent ? 'step-current' : isDone ? 'step-done' : '';
-    const lineDone = idx < curIdx ? 'line-done' : '';
-    return `
-      <div class="stepper-step ${cls}">
-        <div class="stepper-circle">${isDone ? '✓' : idx + 1}</div>
-        <div class="stepper-label">${s.label}</div>
+  return `
+    <div class="report-status-bar">
+      <div class="status-stage-header">
+        <span class="status-pill status-${currentStatus}">● ${statusLabel(currentStatus)}</span>
+        <span class="status-step-count mono">Stage ${curIdx + 1} of 4</span>
       </div>
-      ${idx < STAGES.length - 1 ? `<div class="stepper-line ${lineDone}"></div>` : ''}
-    `;
-  }).join('');
+      <div class="status-track">
+        <div class="status-track-fill" style="width:${pct}%;"></div>
+      </div>
+      <div class="status-steps-dots">
+        ${STAGES.map((s, idx) => `
+          <span class="step-dot-item ${idx <= curIdx ? 'done' : ''} ${idx === curIdx ? 'current' : ''}">${s.label}</span>
+        `).join('')}
+      </div>
+    </div>
+  `;
 }
 
 function openStatusModal(reportId) {
@@ -2371,6 +2443,7 @@ function renderReports() {
       const mine = myReports.find(m => m.id === r.id);
       const highlight = mine && mine.unseen ? ' unseen-update' : '';
       const yourTag = mine ? '<span class="your-report-tag" style="display:inline-block;margin-bottom:4px;">● Your report</span><br>' : '';
+      const displayLocation = r.locationName || r.landmark || r.purok;
       return `
       <div class="report-card${highlight}">
         <div class="report-card-head">
@@ -2387,16 +2460,14 @@ function renderReports() {
           </div>
         </div>
 
-        ${(r.landmark || (r.coords && r.coords.lat)) ? `
-          <div class="report-location-box">
-            ${r.landmark ? `<div class="location-landmark"><strong>Landmark:</strong> ${r.landmark}</div>` : ''}
-            ${r.coords && r.coords.lat ? `
-              <a href="https://www.google.com/maps?q=${r.coords.lat},${r.coords.lng}" target="_blank" rel="noopener" class="map-pin-btn">
-                📍 Open in Google Maps (${r.coords.lat}, ${r.coords.lng}) ↗
-              </a>
-            ` : ''}
-          </div>
-        ` : ''}
+        <div class="report-location-badge">
+          <span>📍 <strong>Location:</strong> ${displayLocation}</span>
+          ${r.coords && r.coords.lat ? `
+            <a href="https://www.google.com/maps?q=${r.coords.lat},${r.coords.lng}" target="_blank" rel="noopener" class="map-link-chip" onclick="event.stopPropagation()">
+              🗺️ View Map ↗
+            </a>
+          ` : ''}
+        </div>
 
         <p class="report-desc-text">${r.desc}</p>
 
@@ -2407,13 +2478,8 @@ function renderReports() {
           </div>
         ` : ''}
 
-        <!-- 4-Stage Workflow Stepper -->
-        <div class="report-stepper-wrap">
-          <div class="stepper-title">Report Progress:</div>
-          <div class="report-stepper">
-            ${renderStepper(r.status || 'pending')}
-          </div>
-        </div>
+        <!-- 4-Stage Progress Track -->
+        ${renderStepper(r.status || 'pending')}
 
         ${r.adminRemarks ? `
           <div class="admin-remark-box">
@@ -2432,7 +2498,9 @@ function renderReports() {
   const adminTable = document.getElementById('adminReportsTable');
   const noNote = document.getElementById('noReportsNote');
   if (adminTable) {
-    adminTable.innerHTML = liveReports.map(r => `
+    adminTable.innerHTML = liveReports.map(r => {
+      const displayLocation = r.locationName || r.landmark || r.purok;
+      return `
       <tr>
         <td>
           <strong>${r.name}</strong>
@@ -2440,8 +2508,8 @@ function renderReports() {
         </td>
         <td>
           <div><strong>${r.purok}</strong></div>
-          ${r.landmark ? `<div style="font-size:12px;color:var(--muted);">${r.landmark}</div>` : ''}
-          ${r.coords && r.coords.lat ? `<a href="https://www.google.com/maps?q=${r.coords.lat},${r.coords.lng}" target="_blank" rel="noopener" class="map-pin-btn">📍 Pin Map ↗</a>` : ''}
+          <div style="font-size:12.5px;color:var(--ink);margin-top:2px;">📍 ${displayLocation}</div>
+          ${r.coords && r.coords.lat ? `<a href="https://www.google.com/maps?q=${r.coords.lat},${r.coords.lng}" target="_blank" rel="noopener" class="map-link-chip" style="margin-top:4px;">🗺️ View Map ↗</a>` : ''}
         </td>
         <td>
           ${r.photoUrl ? `
@@ -2465,7 +2533,8 @@ function renderReports() {
           </div>
         </td>
       </tr>
-    `).join('');
+    `;
+    }).join('');
   }
   if (noNote) noNote.style.display = liveReports.length ? 'none' : 'block';
 
@@ -2498,6 +2567,7 @@ async function submitReport(e) {
       type,
       desc,
       landmark: landmark || null,
+      locationName: currentLocationName || landmark || purok,
       coords: currentCoords || null,
       photoUrl: currentPhotoData || null,
       status: 'pending',
