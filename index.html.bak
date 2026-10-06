@@ -8,343 +8,110 @@
 <link href="https://fonts.googleapis.com/css2?family=Bitter:wght@400;600;700;900&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
 <style>
   :root{
-    /* Dynamic Theme Accent System (Default: Ocean SaaS / Forest Eco) */
-    --accent: #2563eb;
-    --accent-hover: #1d4ed8;
-    --accent-pale: #eff6ff;
-    --accent-glow: rgba(37, 99, 235, 0.22);
-    --primary: #1e40af;
-    --primary-hover: #1d4ed8;
-    --primary-pale: #dbeafe;
-    --ambient-bg: #071124;
-    --ambient-glow: #13254e;
-
-    /* Base Modern SaaS Porcelain/Slate Canvas */
-    --bg: #F8FAFC;
-    --paper: #FFFFFF;
+    --bg: #F4EFE2;
+    --paper: #FBF8F0;
     --card: #FFFFFF;
-    --card-border: #E2E8F0;
-    --surface-hover: #F1F5F9;
-    --forest: var(--primary);
-    --forest-light: var(--accent);
-    --forest-pale: var(--accent-pale);
-    --ochre: #F59E0B;
-    --ochre-pale: #FEF3C7;
-    --clay: #EF4444;
-    --clay-pale: #FEE2E2;
-    --ink: #0F172A;
-    --ink-secondary: #475569;
-    --muted: #64748B;
-    --line: #E2E8F0;
+    --forest: #1F3D2B;
+    --forest-light: #2F5A3E;
+    --forest-pale: #E5ECE3;
+    --ochre: #D9A441;
+    --ochre-pale: #F7E9C9;
+    --clay: #BD5B38;
+    --clay-pale: #F3DED2;
+    --ink: #2B2B26;
+    --muted: #756F5F;
+    --line: #DCD2B8;
     --special: #6B4A45;
     --special-pale: #E9DAD6;
-    --radius: 12px;
-    --radius-sm: 8px;
-    --radius-full: 999px;
-    --shadow-sm: 0 1px 3px rgba(0,0,0,0.05), 0 1px 2px rgba(0,0,0,0.03);
-    --shadow-md: 0 4px 16px -2px rgba(0,0,0,0.06), 0 2px 6px -1px rgba(0,0,0,0.03);
-    --shadow-lg: 0 20px 45px -10px rgba(0,0,0,0.12), 0 0 0 1px rgba(0,0,0,0.04);
+    --radius: 4px;
   }
-
-  /* Themes - "One accent re-tints everything" */
-  [data-accent="forest"] {
-    --accent: #10b981;
-    --accent-hover: #059669;
-    --accent-pale: #ecfdf5;
-    --accent-glow: rgba(16, 185, 129, 0.22);
-    --primary: #064e3b;
-    --primary-hover: #047857;
-    --primary-pale: #e6f4ea;
-    --ambient-bg: #071912;
-    --ambient-glow: #103626;
-  }
-  [data-accent="ocean"] {
-    --accent: #2563eb;
-    --accent-hover: #1d4ed8;
-    --accent-pale: #eff6ff;
-    --accent-glow: rgba(37, 99, 235, 0.22);
-    --primary: #1e40af;
-    --primary-hover: #1d4ed8;
-    --primary-pale: #dbeafe;
-    --ambient-bg: #071124;
-    --ambient-glow: #13254e;
-  }
-  [data-accent="plum"] {
-    --accent: #7c3aed;
-    --accent-hover: #6d28d9;
-    --accent-pale: #f5f3ff;
-    --accent-glow: rgba(124, 58, 237, 0.22);
-    --primary: #581c87;
-    --primary-hover: #6d28d9;
-    --primary-pale: #ede9fe;
-    --ambient-bg: #140726;
-    --ambient-glow: #2c1050;
-  }
-  [data-accent="ember"] {
-    --accent: #ea580c;
-    --accent-hover: #c2410c;
-    --accent-pale: #fff7ed;
-    --accent-glow: rgba(234, 88, 12, 0.22);
-    --primary: #7c2d12;
-    --primary-hover: #c2410c;
-    --primary-pale: #ffedd5;
-    --ambient-bg: #1c0a03;
-    --ambient-glow: #381507;
-  }
-  [data-accent="midnight"] {
-    --accent: #475569;
-    --accent-hover: #334155;
-    --accent-pale: #f1f5f9;
-    --accent-glow: rgba(71, 85, 105, 0.22);
-    --primary: #0f172a;
-    --primary-hover: #1e293b;
-    --primary-pale: #e2e8f0;
-    --ambient-bg: #020617;
-    --ambient-glow: #0f172a;
-  }
-
-  [data-density="compact"] {
-    --card-padding: 16px;
-    --item-padding: 8px 12px;
-  }
-
   *{box-sizing:border-box;}
-  body{
-    margin:0;
-    background-color: var(--ambient-bg);
-    background-image: radial-gradient(circle at 50% -10%, var(--ambient-glow) 0%, var(--ambient-bg) 85%);
-    color:var(--ink);
-    font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
-    min-height:100vh;
-    transition: background-color .35s ease, background-image .35s ease;
-  }
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;}
   .mono{font-family:'IBM Plex Mono',monospace;}
   .display{font-family:'Bitter',serif;}
 
-  /* Floating SaaS Window Container */
-  .portal-mode{
-    display:none;
-    max-width:1420px;
-    margin:22px auto;
-    background:var(--bg);
-    border-radius:20px;
-    box-shadow: 0 25px 65px -12px rgba(0,0,0,0.38), 0 0 0 1px rgba(255,255,255,0.12);
-    border:1px solid rgba(255,255,255,0.14);
-    overflow:hidden;
-    min-height:calc(100vh - 44px);
-    position:relative;
-  }
-  .portal-mode.active{display:flex;flex-direction:column;}
-
-  /* Modern SaaS Top Header */
   header.top{
-    background:#ffffff;
-    color:var(--ink);
-    padding:14px 26px;
+    background:var(--forest);
+    color:var(--paper);
+    padding:18px 28px;
     display:flex;
     align-items:center;
     justify-content:space-between;
-    border-bottom:1px solid var(--line);
-    gap:16px;
+    border-bottom:4px solid var(--ochre);
+    flex-wrap:wrap;
+    gap:12px;
     position:sticky;top:0;z-index:100;
   }
-  .brand{display:flex;align-items:center;gap:12px;}
+  .brand{display:flex;align-items:center;gap:14px;}
   .seal{
-    width:42px;height:42px;border-radius:12px;
-    background:linear-gradient(135deg, var(--accent) 0%, var(--primary) 100%);
-    color:#ffffff;
+    width:50px;height:50px;border-radius:50%;
+    background:var(--ochre);
     display:flex;align-items:center;justify-content:center;
-    box-shadow:0 4px 12px var(--accent-glow);
+    border:2px solid var(--paper);
     flex-shrink:0;
   }
-  .seal svg{width:24px;height:24px;}
-  .brand-text .brand-app-title{
-    font-size:15.5px;
-    font-weight:700;
-    color:var(--ink);
-    letter-spacing:-0.01em;
-    display:block;
-  }
-  .brand-text .brand-app-sub{
+  .seal svg{width:28px;height:28px;}
+  .brand-text .eyebrow{
     font-family:'IBM Plex Mono',monospace;
     font-size:11px;
-    letter-spacing:.06em;
+    letter-spacing:.12em;
     text-transform:uppercase;
-    color:var(--muted);
-    display:block;
+    color:var(--ochre);
+    margin:0 0 2px;
   }
-
-  /* Spotlight Search Bar */
-  .top-search-wrap{
-    flex:1;
-    max-width:440px;
-    margin:0 12px;
-    background:#F1F5F9;
-    border:1.5px solid transparent;
-    border-radius:10px;
-    padding:8px 14px;
-    display:flex;
-    align-items:center;
-    gap:10px;
-    cursor:pointer;
-    transition:all .18s ease;
-    user-select:none;
-  }
-  .top-search-wrap:hover{
-    background:#ffffff;
-    border-color:var(--accent);
-    box-shadow:0 0 0 3px var(--accent-glow);
-  }
-  .search-icon{font-size:14px;color:var(--muted);opacity:.85;}
-  .search-placeholder{
-    font-size:13px;
-    color:var(--muted);
-    flex:1;
-    white-space:nowrap;
-    overflow:hidden;
-    text-overflow:ellipsis;
-  }
-  .search-kbd{
-    font-family:'IBM Plex Mono',monospace;
-    font-size:10.5px;
-    background:#ffffff;
-    border:1px solid #CBD5E1;
-    color:var(--ink-secondary);
-    padding:2px 7px;
-    border-radius:6px;
-    font-weight:600;
-    box-shadow:0 1px 2px rgba(0,0,0,0.05);
-  }
-
-  /* User & Actions Bar */
-  .user-bar{display:flex;align-items:center;gap:10px;}
-  .top-icon-btn{
-    width:38px;height:38px;border-radius:10px;
-    background:transparent;border:1px solid #E2E8F0;
-    display:flex;align-items:center;justify-content:center;
-    cursor:pointer;position:relative;font-size:16px;
-    color:var(--ink-secondary);transition:all .15s ease;
-  }
-  .top-icon-btn:hover{background:#F1F5F9;color:var(--ink);border-color:#CBD5E1;}
-  .notif-ping-dot{
-    position:absolute;top:7px;right:7px;
-    width:7px;height:7px;border-radius:50%;
-    background:var(--clay);
-    box-shadow:0 0 0 2px #ffffff;
-  }
-
-  .user-profile-pill{
-    display:flex;align-items:center;gap:10px;
-    padding:4px 10px 4px 6px;
-    background:#F8FAFC;
-    border:1px solid var(--line);
-    border-radius:999px;
-    cursor:pointer;
-    transition:all .15s ease;
-    user-select:none;
-  }
-  .user-profile-pill:hover{
-    background:#ffffff;
-    border-color:var(--accent);
-    box-shadow:0 2px 8px rgba(0,0,0,0.05);
-  }
-  .user-avatar-circle{
-    width:28px;height:28px;border-radius:50%;
-    background:linear-gradient(135deg, var(--accent) 0%, var(--primary) 100%);
-    color:#ffffff;
-    font-size:11px;font-weight:700;
-    display:flex;align-items:center;justify-content:center;
-    flex-shrink:0;
-  }
-  .user-info-text{display:flex;flex-direction:column;line-height:1.15;text-align:left;}
-  .user-name-text{font-size:12.5px;font-weight:700;color:var(--ink);}
-  .user-role-text{font-size:10.5px;color:var(--muted);}
-  .dropdown-chevron{font-size:11px;color:var(--muted);margin-left:2px;}
-
-  .staff-link{
-    font-family:'Inter',sans-serif;font-weight:600;font-size:12.5px;
-    color:var(--ink);text-decoration:none;
-    border:1px solid #CBD5E1;
-    padding:8px 14px;border-radius:999px;
-    transition:all .15s ease;
-    background:#ffffff;cursor:pointer;
-  }
-  .staff-link:hover{background:#F1F5F9;border-color:var(--accent);color:var(--primary);}
-
-  /* App Shell & Sidebar */
-  .app-shell{display:flex;flex:1;min-height:0;}
-  .sidebar{
-    width:220px;
-    background:#ffffff;
-    border-right:1px solid var(--line);
-    color:var(--ink-secondary);
-    padding:16px 10px;
-    flex-shrink:0;
-    display:flex;flex-direction:column;gap:4px;
-  }
-  .sidebar-section-title{
-    font-family:'IBM Plex Mono',monospace;
-    font-size:10px;
+  .brand-text h1{
+    font-family:'Bitter',serif;
+    font-size:17px;
+    margin:0;
     font-weight:700;
-    letter-spacing:0.09em;
-    text-transform:uppercase;
-    color:var(--muted);
-    padding:12px 14px 4px;
-    user-select:none;
+    line-height:1.25;
+    max-width:420px;
+  }
+  .staff-link{
+    font-family:'Inter',sans-serif;font-weight:600;font-size:13px;
+    color:var(--paper);opacity:.75;text-decoration:none;
+    border:1.5px solid rgba(255,255,255,0.3);
+    padding:9px 16px;border-radius:999px;
+    transition:all .15s ease;
+    background:none;cursor:pointer;
+  }
+  .staff-link:hover{opacity:1;border-color:var(--ochre);}
+
+  .app-shell{display:flex;min-height:calc(100vh - var(--header-h, 87px));}
+  .sidebar{
+    width:210px;background:var(--forest-light);
+    color:var(--forest-pale);
+    padding:22px 0;
+    flex-shrink:0;
+    position:sticky;top:var(--header-h, 87px);align-self:flex-start;
+    height:calc(100vh - var(--header-h, 87px));
+    display:flex;flex-direction:column;justify-content:center;gap:6px;
   }
   .sidebar .nav-item{
-    display:flex;align-items:center;gap:11px;
-    padding:9px 14px;font-size:13.5px;font-weight:600;
-    cursor:pointer;border-radius:10px;
-    color:var(--ink-secondary);
-    transition:all .15s ease;
-    user-select:none;
+    display:flex;align-items:center;gap:12px;
+    padding:16px 24px;font-size:16.5px;font-weight:600;
+    cursor:pointer;border-left:3px solid transparent;
+    opacity:.75;transition:all .15s ease;
   }
-  .sidebar .nav-item:hover{background:var(--surface-hover);color:var(--ink);}
+  .sidebar .nav-item:hover{opacity:1;background:rgba(0,0,0,0.08);}
   .sidebar .nav-item.active{
-    background:var(--accent-pale);
-    color:var(--primary);
-    font-weight:700;
+    opacity:1;border-left-color:var(--ochre);
+    background:rgba(0,0,0,0.15);color:#fff;
   }
-  .sidebar .nav-item.active .nav-icon{color:var(--accent);}
-  .sidebar .nav-icon{font-size:16px;line-height:1;width:20px;text-align:center;}
-  .sidebar .nav-text{flex:1;}
-  .sidebar .nav-dot{display:none;}
-  .sidebar .nav-badge{
-    padding:2px 7px;border-radius:999px;
-    background:var(--clay);color:#ffffff;
-    font-size:10px;font-weight:700;
-    margin-left:auto;
-  }
+  .sidebar .nav-dot{width:8px;height:8px;border-radius:50%;background:currentColor;flex-shrink:0;}
+  main{flex:1;padding:32px;max-width:1180px;}
 
-  /* Sidebar Promo Mini Card (Matching Instagram Reel) */
-  .sidebar-promo-card{
-    margin-top:auto;
-    padding:14px;
-    border-radius:14px;
-    background:linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
-    color:#ffffff;
-    display:flex;gap:10px;align-items:flex-start;
-    box-shadow:0 8px 20px -4px var(--accent-glow);
-    margin-top:auto;
-  }
-  .promo-card-icon{font-size:22px;line-height:1;}
-  .promo-card-text{flex:1;}
-  .promo-card-title{font-size:12.5px;font-weight:700;margin-bottom:2px;}
-  .promo-card-sub{font-size:11px;opacity:0.9;line-height:1.3;}
-
-  main{flex:1;padding:28px 32px;max-width:1200px;overflow-y:auto;}
   .view{display:none;}
-  .view.active{display:block;animation:fadein .22s ease;}
+  .view.active{display:block;animation:fadein .25s ease;}
   @keyframes fadein{from{opacity:0;transform:translateY(4px);}to{opacity:1;transform:translateY(0);}}
 
   h2.section-title{
-    font-family:'Bitter',serif;font-size:24px;margin:0 0 4px;color:var(--ink);font-weight:700;
+    font-family:'Bitter',serif;font-size:26px;margin:0 0 4px;color:var(--forest);
   }
-  p.section-sub{color:var(--muted);margin:0 0 22px;font-size:14px;}
+  p.section-sub{color:var(--muted);margin:0 0 24px;font-size:14.5px;}
 
   .header-block-interactive{
-    max-width:820px;margin:0 auto 22px;padding-bottom:10px;
+    max-width:820px;margin:0 auto 24px;padding-bottom:14px;
     text-align:center;cursor:pointer;
   }
   .header-block-interactive .section-title,
@@ -353,49 +120,41 @@
     position:relative;display:inline-block;
   }
   .header-block-interactive .section-title::after{
-    content:'';position:absolute;left:50%;bottom:-4px;
-    width:0;height:2px;background:var(--accent);
-    transition:width .25s ease,left .25s ease;
+    content:'';position:absolute;left:50%;bottom:-6px;
+    width:0;height:2px;background:var(--ochre);
+    transition:width .3s ease,left .3s ease;
   }
-  .header-block-interactive:hover .section-title{color:var(--accent);}
+  .header-block-interactive:hover .section-title{color:var(--forest-light);}
   .header-block-interactive:hover .section-title::after{width:100%;left:0;}
   .header-block-interactive .section-sub{margin-bottom:0;}
 
   .stamp{
-    width:104px;height:104px;border-radius:50%;
-    border:2.5px solid currentColor;
+    width:108px;height:108px;border-radius:50%;
+    border:3px solid currentColor;
     display:flex;flex-direction:column;align-items:center;justify-content:center;
     position:relative;flex-shrink:0;
-    transform:rotate(-4deg);
+    transform:rotate(-6deg);
   }
   .stamp::before{
-    content:'';position:absolute;inset:5px;border:1px solid currentColor;border-radius:50%;opacity:.5;
+    content:'';position:absolute;inset:6px;border:1px solid currentColor;border-radius:50%;opacity:.55;
   }
-  .stamp .day{font-family:'Bitter',serif;font-weight:900;font-size:22px;line-height:1;}
+  .stamp .day{font-family:'Bitter',serif;font-weight:900;font-size:24px;line-height:1;}
   .stamp .label{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.08em;text-transform:uppercase;margin-top:3px;text-align:center;padding:0 8px;}
 
-  /* Modern Cards */
   .card{
-    background:#ffffff;
-    border:1px solid var(--card-border);
-    border-radius:var(--radius);
+    background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
     padding:22px;
-    box-shadow:var(--shadow-sm);
   }
   .grid-2{display:grid;grid-template-columns:1.1fr 1.6fr;gap:20px;align-items:stretch;}
-  .grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px;}
+  .grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:28px;}
   @media(max-width:900px){.grid-2{grid-template-columns:1fr;}.grid-4{grid-template-columns:repeat(2,1fr);}}
 
   select, input, textarea{
     font-family:'Inter',sans-serif;font-size:14px;
-    border:1.5px solid #E2E8F0;border-radius:10px;
-    padding:10px 14px;background:#F8FAFC;color:var(--ink);width:100%;
-    transition:all .15s ease;
+    border:1px solid var(--line);border-radius:var(--radius);
+    padding:10px 12px;background:var(--paper);color:var(--ink);width:100%;
   }
-  select:focus, input:focus, textarea:focus{
-    outline:none;border-color:var(--accent);
-    background:#ffffff;box-shadow:0 0 0 3px var(--accent-glow);
-  }
+  select:focus, input:focus, textarea:focus{outline:2px solid var(--ochre);outline-offset:1px;}
   label.field-label{
     font-family:'IBM Plex Mono',monospace;font-size:11px;text-transform:uppercase;
     letter-spacing:.06em;color:var(--muted);display:block;margin-bottom:6px;
@@ -403,29 +162,20 @@
 
   .btn{
     font-family:'Inter',sans-serif;font-weight:600;font-size:13.5px;
-    border:none;border-radius:10px;padding:10px 18px;cursor:pointer;
-    transition:all .15s ease;
+    border:none;border-radius:var(--radius);padding:11px 20px;cursor:pointer;
+    transition:transform .1s ease;
   }
-  .btn:active{transform:scale(.98);}
-  .btn-primary{
-    background:var(--accent);
-    color:#ffffff;
-    box-shadow:0 2px 8px var(--accent-glow);
-  }
-  .btn-primary:hover{background:var(--accent-hover);box-shadow:0 4px 12px var(--accent-glow);}
-  .btn-outline{
-    background:transparent;
-    border:1.5px solid var(--accent);
-    color:var(--accent);
-  }
-  .btn-outline:hover{background:var(--accent-pale);}
+  .btn:active{transform:scale(.97);}
+  .btn-primary{background:var(--forest);color:#fff;}
+  .btn-primary:hover{background:var(--forest-light);}
+  .btn-outline{background:transparent;border:1.5px solid var(--forest);color:var(--forest);}
 
   .chip{
     display:inline-flex;align-items:center;gap:6px;
     font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600;
     padding:4px 10px;border-radius:999px;text-transform:uppercase;letter-spacing:.04em;
   }
-  .chip-bio{background:#ECFDF5;color:#047857;}
+  .chip-bio{background:var(--forest-pale);color:var(--forest);}
   .chip-nonbio{background:var(--clay-pale);color:var(--clay);}
   .chip-recycle{background:var(--ochre-pale);color:#8a611e;}
   .chip-special{background:var(--special-pale);color:var(--special);}
@@ -435,52 +185,45 @@
   th{
     text-align:left;font-family:'IBM Plex Mono',monospace;font-size:11px;
     text-transform:uppercase;letter-spacing:.06em;color:var(--muted);
-    padding:12px 14px;border-bottom:2px solid var(--line);background:#F8FAFC;
+    padding:10px 12px;border-bottom:2px solid var(--line);
   }
-  td{padding:13px 14px;border-bottom:1px solid var(--line);font-size:14px;}
+  td{padding:13px 12px;border-bottom:1px solid var(--line);font-size:14px;}
   tr:last-child td{border-bottom:none;}
-  tr:hover td{background:#F8FAFC;}
+  tr:hover td{background:rgba(31,61,43,0.025);}
 
-  .ruled-divider{height:1px;background:var(--line);margin:24px 0;}
+  .ruled-divider{height:1px;background:repeating-linear-gradient(90deg,var(--line) 0 6px,transparent 6px 11px);margin:22px 0;}
 
-  .guide-stack{display:flex;flex-direction:column;gap:20px;max-width:820px;margin:0 auto;}
+  .guide-stack{display:flex;flex-direction:column;gap:26px;max-width:820px;margin:0 auto;}
   .guide-card{
-    border-radius:14px;padding:32px 36px;color:#fff;
-    display:flex;flex-direction:column;gap:12px;justify-content:center;align-items:center;
-    text-align:center;min-height:210px;
+    border-radius:10px;padding:38px 42px;color:#fff;
+    display:flex;flex-direction:column;gap:14px;justify-content:center;align-items:center;
+    text-align:center;min-height:230px;
     cursor:pointer;position:relative;overflow:hidden;
     transition:min-height .35s ease, padding .35s ease, transform .2s ease, box-shadow .2s ease;
-    box-shadow:var(--shadow-sm);
+    box-shadow:0 2px 6px rgba(0,0,0,0.08);
   }
-  .guide-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-md);}
-  .guide-card .icon{font-size:40px;line-height:1;margin-bottom:2px;}
-  .guide-card h4{margin:0;font-family:'Bitter',serif;font-size:26px;font-weight:700;}
-  .guide-card p{margin:0;font-size:16px;opacity:.95;line-height:1.5;max-width:560px;}
+  .guide-card:hover{transform:translateY(-3px);box-shadow:0 10px 24px rgba(0,0,0,0.18);}
+  .guide-card .icon{font-size:44px;line-height:1;margin-bottom:2px;}
+  .guide-card h4{margin:0;font-family:'Bitter',serif;font-size:30px;font-weight:700;}
+  .guide-card p{margin:0;font-size:17px;opacity:.95;line-height:1.55;max-width:560px;}
   .guide-card .tag{
-    font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:.08em;
-    text-transform:uppercase;opacity:.9;background:rgba(255,255,255,0.22);
+    font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.08em;
+    text-transform:uppercase;opacity:.85;background:rgba(255,255,255,0.18);
     padding:4px 12px;border-radius:999px;
   }
   .guide-card .more{
-    max-height:0;opacity:0;overflow:hidden;font-size:15px;line-height:1.6;max-width:560px;
+    max-height:0;opacity:0;overflow:hidden;font-size:15.5px;line-height:1.6;max-width:560px;
     transition:max-height .35s ease, opacity .3s ease, margin .35s ease;margin-top:0;
   }
-  .guide-card.expanded{min-height:300px;padding:38px 36px;}
+  .guide-card.expanded{min-height:340px;padding:46px 42px;}
   .guide-card.expanded .more{max-height:220px;opacity:1;margin-top:6px;}
   .guide-card .hint{
     font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.06em;
-    text-transform:uppercase;opacity:.7;margin-top:4px;
+    text-transform:uppercase;opacity:.65;margin-top:4px;
   }
 
-  .stat-card{
-    background:#ffffff;
-    border:1px solid var(--line);
-    border-left:4px solid var(--accent);
-    border-radius:12px;
-    padding:16px 20px;
-    box-shadow:var(--shadow-sm);
-  }
-  .stat-card .num{font-family:'Bitter',serif;font-size:30px;font-weight:700;color:var(--ink);}
+  .stat-card{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--ochre);border-radius:var(--radius);padding:18px 20px;}
+  .stat-card .num{font-family:'Bitter',serif;font-size:32px;font-weight:700;color:var(--forest);}
   .stat-card .lab{font-family:'IBM Plex Mono',monospace;font-size:11px;text-transform:uppercase;color:var(--muted);letter-spacing:.05em;}
 
   .status-pill{
@@ -491,265 +234,7 @@
   .status-pending{background:var(--clay-pale);color:var(--clay);}
   .status-acknowledged{background:#E0ECF8;color:#1E5B94;}
   .status-progress{background:var(--ochre-pale);color:#8a611e;}
-  .status-resolved{background:#ECFDF5;color:#047857;}
-
-  /* ============================================================
-     SETTINGS VIEW STYLES ("One accent re-tints everything")
-     ============================================================ */
-  .settings-page-header{margin-bottom:24px;}
-  .settings-title{
-    font-family:'Bitter',serif;font-size:28px;font-weight:700;
-    margin:0 0 4px;color:var(--ink);
-  }
-  .settings-sub{color:var(--muted);margin:0;font-size:14px;}
-
-  .settings-layout-card{
-    background:#ffffff;
-    border:1px solid var(--card-border);
-    border-radius:18px;
-    box-shadow:var(--shadow-sm);
-    display:grid;
-    grid-template-columns:220px 1fr;
-    min-height:480px;
-    overflow:hidden;
-  }
-  @media(max-width:850px){
-    .settings-layout-card{grid-template-columns:1fr;}
-  }
-
-  .settings-subnav{
-    background:#F8FAFC;
-    border-right:1px solid var(--line);
-    padding:18px 12px;
-    display:flex;
-    flex-direction:column;
-    gap:4px;
-  }
-  @media(max-width:850px){
-    .settings-subnav{
-      flex-direction:row;overflow-x:auto;
-      border-right:none;border-bottom:1px solid var(--line);
-    }
-  }
-
-  .settings-subnav-item{
-    display:flex;align-items:center;gap:10px;
-    padding:10px 14px;border-radius:10px;
-    border:none;background:transparent;
-    font-family:'Inter',sans-serif;font-size:13.5px;font-weight:600;
-    color:var(--ink-secondary);cursor:pointer;
-    text-align:left;transition:all .15s ease;
-    white-space:nowrap;
-  }
-  .settings-subnav-item:hover{background:#EDF2F7;color:var(--ink);}
-  .settings-subnav-item.active{
-    background:var(--accent-pale);
-    color:var(--primary);
-    font-weight:700;
-  }
-
-  .settings-panel-container{padding:28px 32px;}
-  .settings-tab-panel{display:none;}
-  .settings-tab-panel.active{display:block;animation:fadein .2s ease;}
-
-  .panel-header{margin-bottom:24px;padding-bottom:14px;border-bottom:1px solid var(--line);}
-  .panel-heading{font-size:18px;font-weight:700;margin:0 0 4px;color:var(--ink);}
-  .panel-subtext{font-size:13.5px;color:var(--muted);margin:0;}
-
-  .setting-row{margin-bottom:28px;}
-  .setting-caption{
-    font-family:'IBM Plex Mono',monospace;
-    font-size:11px;font-weight:700;
-    letter-spacing:.08em;text-transform:uppercase;
-    color:var(--muted);display:block;margin-bottom:10px;
-  }
-
-  /* Color Swatches matching screenshot */
-  .accent-picker-row{
-    display:flex;flex-wrap:wrap;gap:10px;
-  }
-  .accent-picker-btn{
-    display:inline-flex;align-items:center;gap:8px;
-    padding:8px 14px;border-radius:999px;
-    border:1.5px solid var(--line);
-    background:#ffffff;cursor:pointer;
-    font-family:'Inter',sans-serif;font-size:13px;font-weight:600;
-    color:var(--ink);transition:all .15s ease;
-  }
-  .accent-picker-btn:hover{border-color:var(--ink-secondary);background:#F8FAFC;}
-  .accent-picker-btn.active{
-    border-color:var(--primary);
-    background:var(--accent-pale);
-    color:var(--primary);
-    box-shadow:0 0 0 2px var(--accent-glow);
-  }
-  .accent-swatch{
-    width:14px;height:14px;border-radius:50%;flex-shrink:0;
-  }
-  .dot-forest{background:#10b981;}
-  .dot-ocean{background:#2563eb;}
-  .dot-plum{background:#7c3aed;}
-  .dot-ember{background:#ea580c;}
-  .dot-midnight{background:#334155;}
-
-  /* Segmented Controls matching screenshot */
-  .segment-group{
-    display:inline-flex;
-    background:#F1F5F9;
-    padding:4px;
-    border-radius:10px;
-    gap:4px;
-  }
-  .segment-btn{
-    padding:7px 16px;
-    border:none;border-radius:8px;
-    background:transparent;
-    font-family:'Inter',sans-serif;font-size:13px;font-weight:600;
-    color:var(--ink-secondary);cursor:pointer;
-    transition:all .15s ease;
-  }
-  .segment-btn:hover{color:var(--ink);}
-  .segment-btn.active{
-    background:#ffffff;
-    color:var(--ink);
-    box-shadow:0 2px 6px rgba(0,0,0,0.08);
-  }
-
-  /* Floating Accent Toast at Bottom Center (Exactly as in Video) */
-  .accent-toast-pill{
-    position:fixed;
-    bottom:28px;
-    left:50%;
-    transform:translateX(-50%) translateY(30px);
-    opacity:0;
-    background:#0F172A;
-    color:#ffffff;
-    padding:9px 18px;
-    border-radius:999px;
-    font-size:13px;font-weight:600;
-    display:flex;align-items:center;gap:8px;
-    box-shadow:0 12px 30px rgba(0,0,0,0.3);
-    z-index:9999;
-    pointer-events:none;
-    transition:all .25s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-  .accent-toast-pill.show{
-    transform:translateX(-50%) translateY(0);
-    opacity:1;
-  }
-  .accent-toast-dot{
-    width:8px;height:8px;border-radius:50%;
-    background:var(--accent);
-  }
-
-  /* Notification & User Dropdown Popovers */
-  .dropdown-popover{
-    position:fixed;
-    top:68px;right:24px;
-    width:320px;
-    background:#ffffff;
-    border:1px solid var(--card-border);
-    border-radius:14px;
-    box-shadow:0 16px 40px -8px rgba(0,0,0,0.22);
-    z-index:1100;
-    overflow:hidden;
-    animation:fadein .18s ease;
-  }
-  .dropdown-header{
-    padding:12px 16px;background:#F8FAFC;border-bottom:1px solid var(--line);
-    display:flex;align-items:center;justify-content:space-between;
-  }
-  .dropdown-header h4{margin:0;font-size:13.5px;font-weight:700;}
-  .clear-notif-btn{background:none;border:none;color:var(--accent);font-size:12px;font-weight:600;cursor:pointer;}
-  .dropdown-list{max-height:300px;overflow-y:auto;padding:8px 0;}
-  .dropdown-notif-item{padding:10px 16px;border-bottom:1px solid #F1F5F9;font-size:12.5px;}
-  .dropdown-notif-item:last-child{border-bottom:none;}
-  .dropdown-notif-item:hover{background:#F8FAFC;}
-  .dropdown-notif-title{font-weight:600;color:var(--ink);margin-bottom:2px;}
-  .dropdown-notif-time{font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--muted);}
-
-  .user-dropdown-popover{width:240px;padding:8px;}
-  .user-dropdown-head{padding:10px 12px;display:flex;align-items:center;gap:10px;}
-  .dropdown-divider{height:1px;background:var(--line);margin:6px 0;}
-  .dropdown-menu-item{
-    width:100%;display:flex;align-items:center;gap:10px;
-    padding:8px 12px;border:none;background:transparent;
-    font-family:'Inter',sans-serif;font-size:13px;font-weight:500;
-    color:var(--ink);cursor:pointer;border-radius:8px;text-align:left;
-    transition:background .12s ease;
-  }
-  .dropdown-menu-item:hover{background:#F1F5F9;}
-  .dropdown-menu-item.item-danger{color:var(--clay);}
-  .dropdown-menu-item.item-danger:hover{background:var(--clay-pale);}
-
-  /* Command Palette (⌘K / Ctrl+K) */
-  .cmd-palette-backdrop{
-    position:fixed;inset:0;background:rgba(15,23,42,0.6);
-    backdrop-filter:blur(4px);
-    z-index:9990;
-    display:flex;align-items:flex-start;justify-content:center;
-    padding-top:12vh;
-    animation:fadein .15s ease;
-  }
-  .cmd-palette-box{
-    width:560px;max-width:calc(100vw - 32px);
-    background:#ffffff;border:1px solid var(--card-border);
-    border-radius:16px;
-    box-shadow:0 25px 60px -10px rgba(0,0,0,0.35);
-    overflow:hidden;
-    display:flex;flex-direction:column;
-  }
-  .cmd-input-bar{
-    display:flex;align-items:center;gap:12px;padding:14px 18px;
-    border-bottom:1px solid var(--line);
-  }
-  .cmd-icon{font-size:18px;color:var(--muted);}
-  .cmd-input-bar input{
-    border:none !important;background:transparent !important;
-    padding:0 !important;font-size:15px !important;
-    outline:none !important;box-shadow:none !important;
-  }
-  .cmd-esc-btn{
-    font-family:'IBM Plex Mono',monospace;font-size:10.5px;
-    background:#F1F5F9;border:1px solid #CBD5E1;color:var(--muted);
-    padding:2px 6px;border-radius:5px;cursor:pointer;
-  }
-  .cmd-results-list{max-height:360px;overflow-y:auto;padding:8px;}
-  .cmd-item{
-    display:flex;align-items:center;gap:12px;padding:10px 14px;
-    border-radius:10px;cursor:pointer;font-size:13.5px;
-    color:var(--ink);transition:all .12s ease;
-  }
-  .cmd-item:hover, .cmd-item.selected{background:var(--accent-pale);color:var(--primary);}
-  .cmd-item-icon{font-size:16px;}
-  .cmd-item-tag{
-    margin-left:auto;font-family:'IBM Plex Mono',monospace;
-    font-size:10.5px;color:var(--muted);text-transform:uppercase;
-  }
-
-  /* Profile & Notification Tab Components */
-  .profile-info-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
-  @media(max-width:700px){.profile-info-grid{grid-template-columns:1fr;}}
-  .profile-avatar-card{
-    background:#F8FAFC;border:1px solid var(--line);border-radius:14px;
-    padding:20px;display:flex;align-items:center;gap:16px;
-  }
-  .large-avatar-circle{
-    width:56px;height:56px;border-radius:50%;
-    background:linear-gradient(135deg, var(--accent) 0%, var(--primary) 100%);
-    color:#ffffff;font-size:22px;font-weight:700;
-    display:flex;align-items:center;justify-content:center;
-  }
-  .notification-toggles-stack{display:flex;flex-direction:column;gap:12px;}
-  .toggle-card{
-    display:flex;align-items:center;justify-content:space-between;
-    padding:16px 20px;background:#F8FAFC;border:1px solid var(--line);
-    border-radius:12px;cursor:pointer;user-select:none;
-  }
-  .toggle-card-info{display:flex;flex-direction:column;gap:3px;}
-  .toggle-card-info strong{font-size:14px;color:var(--ink);}
-  .toggle-card-info span{font-size:12.5px;color:var(--muted);}
-  .toggle-card input{width:18px;height:18px;accent-color:var(--accent);cursor:pointer;}
+  .status-resolved{background:var(--forest-pale);color:var(--forest);}
 
   .notice-item{padding:14px 0;border-bottom:1px solid var(--line);}
   .notice-item:last-child{border-bottom:none;}
@@ -1186,13 +671,6 @@
     .staff-link{padding:6px 10px;font-size:11px;}
 
     .app-shell{flex-direction:column;min-height:0;}
-    .sidebar-section-title, .sidebar-promo-card { display: none !important; }
-    .top-search-wrap { display: none !important; }
-    .user-role-text { display: none !important; }
-    .dropdown-chevron { display: none !important; }
-    .sidebar .nav-item[onclick*="toggleChat"],
-    .sidebar .nav-item[onclick*="logout"],
-    .sidebar .nav-item[onclick*="switchPortal"] { display: none !important; }
 
     /* Bottom Navigation Bar on Mobile */
     .sidebar{
@@ -1415,43 +893,22 @@
   <div class="brand">
     <div class="seal">
       <svg viewBox="0 0 24 24" fill="none" aria-label="SWMS logo">
-        <path d="M6.5 8h11l-1.1 12.2a2 2 0 0 1-2 1.8H9.6a2 2 0 0 1-2-1.8L6.5 8z" stroke="#ffffff" stroke-width="1.8" stroke-linejoin="round"/>
-        <path d="M4.5 8h15" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round"/>
-        <path d="M9.3 8V6.2a1.7 1.7 0 0 1 1.7-1.7h2a1.7 1.7 0 0 1 1.7 1.7V8" stroke="#ffffff" stroke-width="1.8"/>
-        <path d="M9.6 11.5c2.6 0 4.6 1.7 4.6 5.1-3.4 0-4.6-2.2-4.6-5.1z" fill="#ffffff"/>
+        <path d="M6.5 8h11l-1.1 12.2a2 2 0 0 1-2 1.8H9.6a2 2 0 0 1-2-1.8L6.5 8z" stroke="#1F3D2B" stroke-width="1.5" stroke-linejoin="round"/>
+        <path d="M4.5 8h15" stroke="#1F3D2B" stroke-width="1.6" stroke-linecap="round"/>
+        <path d="M9.3 8V6.2a1.7 1.7 0 0 1 1.7-1.7h2a1.7 1.7 0 0 1 1.7 1.7V8" stroke="#1F3D2B" stroke-width="1.5"/>
+        <path d="M9.6 11.5c2.6 0 4.6 1.7 4.6 5.1-3.4 0-4.6-2.2-4.6-5.1z" fill="#1F3D2B"/>
+        <path d="M9.9 12.2c1.1 1.5 1.7 3.2 1.9 4.9" stroke="#F7E9C9" stroke-width="0.9" stroke-linecap="round"/>
       </svg>
     </div>
     <div class="brand-text">
-      <span class="brand-app-title">Panadtalan SWMS</span>
-      <span class="brand-app-sub">Resident Portal</span>
+      <p class="eyebrow">Resident Portal</p>
+      <h1>Solid Waste Management Web-Integrated System for Barangay Panadtalan</h1>
     </div>
   </div>
-
-  <div class="top-search-wrap" onclick="openCommandPalette()">
-    <span class="search-icon">🔍</span>
-    <span class="search-placeholder">Search puroks, schedules, reports...</span>
-    <kbd class="search-kbd">⌘K</kbd>
-  </div>
-
   <div class="user-bar">
-    <button type="button" class="top-icon-btn" onclick="toggleNotificationPopover('resident')" title="Notifications" aria-label="Notifications">
-      <span>🔔</span>
-      <span class="notif-ping-dot" id="resNotifDot"></span>
-    </button>
-    <button type="button" class="top-icon-btn" onclick="navigateToView('res-settings')" title="Appearance &amp; Settings" aria-label="Settings">
-      <span>🎨</span>
-    </button>
-    
-    <div class="user-profile-pill" onclick="toggleUserDropdown('resident')">
-      <div class="user-avatar-circle" id="residentUserAvatar">RP</div>
-      <div class="user-info-text">
-        <span class="user-name-text" id="residentUserName">Resident</span>
-        <span class="user-role-text" id="residentUserSub">Barangay Resident</span>
-      </div>
-      <span class="dropdown-chevron">▾</span>
-    </div>
-
+    <span class="user-chip"><span class="dot"></span><span id="residentUserName">Resident</span></span>
     <button class="staff-link" id="backToAdminBtn" style="display:none;" onclick="switchPortal('admin')">← Back to Admin</button>
+    <button class="staff-link" id="residentLogoutBtn" onclick="logout()">Log Out</button>
   </div>
 </header>
 
@@ -1463,39 +920,10 @@
 
 <div class="app-shell">
   <nav class="sidebar" id="sidebar-resident">
-    <div class="sidebar-section-title">MENU</div>
-    <div class="nav-item active" data-view="res-schedule" onclick="setView(this,'res-schedule')">
-      <span class="nav-icon">📅</span><span class="nav-text">Schedule</span>
-    </div>
-    <div class="nav-item" data-view="res-guide" onclick="setView(this,'res-guide')">
-      <span class="nav-icon">🍃</span><span class="nav-text">Waste Guide</span>
-    </div>
-    <div class="nav-item" data-view="res-report" onclick="setView(this,'res-report')">
-      <span class="nav-icon">⚠️</span><span class="nav-text">Reports</span>
-      <span class="nav-badge" id="reportBadge" style="display:none;"></span>
-    </div>
-    <div class="nav-item" data-view="res-notices" onclick="setView(this,'res-notices')">
-      <span class="nav-icon">📢</span><span class="nav-text">Notices</span>
-    </div>
-
-    <div class="sidebar-section-title">GENERAL</div>
-    <div class="nav-item" data-view="res-settings" onclick="setView(this,'res-settings')">
-      <span class="nav-icon">⚙️</span><span class="nav-text">Settings</span>
-    </div>
-    <div class="nav-item" onclick="toggleChat()">
-      <span class="nav-icon">💬</span><span class="nav-text">Waste AI</span>
-    </div>
-    <div class="nav-item" onclick="logout()">
-      <span class="nav-icon">🚪</span><span class="nav-text">Log Out</span>
-    </div>
-
-    <div class="sidebar-promo-card">
-      <div class="promo-card-icon">📱</div>
-      <div class="promo-card-text">
-        <div class="promo-card-title">SWMS Mobile App</div>
-        <div class="promo-card-sub">Purok collection alerts &amp; guide in your pocket.</div>
-      </div>
-    </div>
+    <div class="nav-item active" data-view="res-schedule" onclick="setView(this,'res-schedule')"><span class="nav-icon">📅</span><span class="nav-text">Schedule</span></div>
+    <div class="nav-item" data-view="res-guide" onclick="setView(this,'res-guide')"><span class="nav-icon">🍃</span><span class="nav-text">Guide</span></div>
+    <div class="nav-item" data-view="res-report" onclick="setView(this,'res-report')"><span class="nav-icon">⚠️</span><span class="nav-text">Report</span><span class="nav-badge" id="reportBadge" style="display:none;"></span></div>
+    <div class="nav-item" data-view="res-notices" onclick="setView(this,'res-notices')"><span class="nav-icon">📢</span><span class="nav-text">Notices</span></div>
   </nav>
 
   <main>
@@ -1681,140 +1109,6 @@
       </div>
       <div class="card" id="resNoticesList"></div>
     </section>
-
-    <section class="view" id="view-res-settings">
-      <div class="settings-page-header">
-        <h2 class="settings-title">Settings</h2>
-        <p class="settings-sub">Your profile, notifications and how SWMS looks.</p>
-      </div>
-
-      <div class="settings-layout-card">
-        <!-- Settings Subnav (Left Pane) -->
-        <div class="settings-subnav">
-          <button type="button" class="settings-subnav-item" onclick="switchSettingsTab('res', 'profile', this)">
-            <span class="tab-icon">👤</span> Profile
-          </button>
-          <button type="button" class="settings-subnav-item" onclick="switchSettingsTab('res', 'notifications', this)">
-            <span class="tab-icon">🔔</span> Notifications
-          </button>
-          <button type="button" class="settings-subnav-item active" onclick="switchSettingsTab('res', 'appearance', this)">
-            <span class="tab-icon">🎨</span> Appearance
-          </button>
-        </div>
-
-        <!-- Settings Content (Right Pane) -->
-        <div class="settings-panel-container">
-          <!-- APPEARANCE PANEL (Active by default, identical to Instagram Reel!) -->
-          <div class="settings-tab-panel active" id="res-tab-appearance">
-            <div class="panel-header">
-              <h3 class="panel-heading">Appearance</h3>
-              <p class="panel-subtext">The accent re-tints the whole workspace, and is remembered on this device.</p>
-            </div>
-
-            <div class="setting-row">
-              <span class="setting-caption">ACCENT</span>
-              <div class="accent-picker-row">
-                <button type="button" class="accent-picker-btn" data-accent="forest" onclick="setAccent('forest')">
-                  <span class="accent-swatch dot-forest"></span>
-                  <span>Forest</span>
-                </button>
-                <button type="button" class="accent-picker-btn active" data-accent="ocean" onclick="setAccent('ocean')">
-                  <span class="accent-swatch dot-ocean"></span>
-                  <span>Ocean</span>
-                </button>
-                <button type="button" class="accent-picker-btn" data-accent="plum" onclick="setAccent('plum')">
-                  <span class="accent-swatch dot-plum"></span>
-                  <span>Plum</span>
-                </button>
-                <button type="button" class="accent-picker-btn" data-accent="ember" onclick="setAccent('ember')">
-                  <span class="accent-swatch dot-ember"></span>
-                  <span>Ember</span>
-                </button>
-                <button type="button" class="accent-picker-btn" data-accent="midnight" onclick="setAccent('midnight')">
-                  <span class="accent-swatch dot-midnight"></span>
-                  <span>Midnight</span>
-                </button>
-              </div>
-            </div>
-
-            <div class="setting-row">
-              <span class="setting-caption">WEEK STARTS ON</span>
-              <div class="segment-group" id="resWeekStartGroup">
-                <button type="button" class="segment-btn active" onclick="setWeekStart('Sunday', this)">Sunday</button>
-                <button type="button" class="segment-btn" onclick="setWeekStart('Monday', this)">Monday</button>
-              </div>
-            </div>
-
-            <div class="setting-row">
-              <span class="setting-caption">WORKSPACE DENSITY</span>
-              <div class="segment-group" id="resDensityGroup">
-                <button type="button" class="segment-btn active" onclick="setDensity('comfortable', this)">Comfortable</button>
-                <button type="button" class="segment-btn" onclick="setDensity('compact', this)">Compact</button>
-              </div>
-            </div>
-          </div>
-
-          <!-- PROFILE PANEL -->
-          <div class="settings-tab-panel" id="res-tab-profile">
-            <div class="panel-header">
-              <h3 class="panel-heading">Profile</h3>
-              <p class="panel-subtext">Manage your account information and assigned location.</p>
-            </div>
-            <div class="profile-info-grid">
-              <div class="profile-avatar-card">
-                <div class="large-avatar-circle" id="resProfileBigAvatar">RP</div>
-                <div>
-                  <h4 style="margin:0 0 4px;font-size:16px;" id="resProfileNameDisplay">Resident</h4>
-                  <p style="margin:0;font-size:13px;color:var(--muted);" id="resProfileRoleDisplay">Purok Resident</p>
-                </div>
-              </div>
-              <div class="card" style="display:flex;flex-direction:column;gap:14px;">
-                <div>
-                  <label class="field-label">Assigned Jurisdiction</label>
-                  <input type="text" value="Barangay Panadtalan, Maramag, Bukidnon" readonly style="opacity:0.85;cursor:not-allowed;">
-                </div>
-                <div>
-                  <label class="field-label">System Access Level</label>
-                  <span class="chip chip-bio" style="font-size:12px;">👤 Citizen / Resident</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- NOTIFICATIONS PANEL -->
-          <div class="settings-tab-panel" id="res-tab-notifications">
-            <div class="panel-header">
-              <h3 class="panel-heading">Notifications</h3>
-              <p class="panel-subtext">Control alerts, collection sound reminders, and reports updates.</p>
-            </div>
-            <div class="notification-toggles-stack">
-              <label class="toggle-card">
-                <div class="toggle-card-info">
-                  <strong>Collection Day Reminders</strong>
-                  <span>Display banner and notification before collection truck arrives at your Purok.</span>
-                </div>
-                <input type="checkbox" checked onchange="saveNotificationPref('collection', this.checked)">
-              </label>
-              <label class="toggle-card">
-                <div class="toggle-card-info">
-                  <strong>Report Status Updates</strong>
-                  <span>Instant notification when report progresses to Acknowledged, In Progress, or Resolved.</span>
-                </div>
-                <input type="checkbox" checked onchange="saveNotificationPref('report', this.checked)">
-              </label>
-              <label class="toggle-card">
-                <div class="toggle-card-info">
-                  <strong>Barangay Official Announcements</strong>
-                  <span>Receive emergency notices, schedule postponements, and cleanup drive advisories.</span>
-                </div>
-                <input type="checkbox" checked onchange="saveNotificationPref('notices', this.checked)">
-              </label>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  
   </main>
 </div>
 </div>
@@ -1827,83 +1121,32 @@
   <div class="brand">
     <div class="seal">
       <svg viewBox="0 0 24 24" fill="none" aria-label="SWMS logo">
-        <path d="M6.5 8h11l-1.1 12.2a2 2 0 0 1-2 1.8H9.6a2 2 0 0 1-2-1.8L6.5 8z" stroke="#ffffff" stroke-width="1.8" stroke-linejoin="round"/>
-        <path d="M4.5 8h15" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round"/>
-        <path d="M9.3 8V6.2a1.7 1.7 0 0 1 1.7-1.7h2a1.7 1.7 0 0 1 1.7 1.7V8" stroke="#ffffff" stroke-width="1.8"/>
-        <path d="M9.6 11.5c2.6 0 4.6 1.7 4.6 5.1-3.4 0-4.6-2.2-4.6-5.1z" fill="#ffffff"/>
+        <path d="M6.5 8h11l-1.1 12.2a2 2 0 0 1-2 1.8H9.6a2 2 0 0 1-2-1.8L6.5 8z" stroke="#1F3D2B" stroke-width="1.5" stroke-linejoin="round"/>
+        <path d="M4.5 8h15" stroke="#1F3D2B" stroke-width="1.6" stroke-linecap="round"/>
+        <path d="M9.3 8V6.2a1.7 1.7 0 0 1 1.7-1.7h2a1.7 1.7 0 0 1 1.7 1.7V8" stroke="#1F3D2B" stroke-width="1.5"/>
+        <path d="M9.6 11.5c2.6 0 4.6 1.7 4.6 5.1-3.4 0-4.6-2.2-4.6-5.1z" fill="#1F3D2B"/>
+        <path d="M9.9 12.2c1.1 1.5 1.7 3.2 1.9 4.9" stroke="#F7E9C9" stroke-width="0.9" stroke-linecap="round"/>
       </svg>
     </div>
     <div class="brand-text">
-      <span class="brand-app-title">Panadtalan SWMS</span>
-      <span class="brand-app-sub">Admin Workspace</span>
+      <p class="eyebrow">Barangay Admin</p>
+      <h1>Solid Waste Management Web-Integrated System for Barangay Panadtalan</h1>
     </div>
   </div>
-
-  <div class="top-search-wrap" onclick="openCommandPalette()">
-    <span class="search-icon">🔍</span>
-    <span class="search-placeholder">Search routes, reports, puroks...</span>
-    <kbd class="search-kbd">⌘K</kbd>
-  </div>
-
   <div class="user-bar">
-    <button type="button" class="top-icon-btn" onclick="toggleNotificationPopover('admin')" title="Notifications" aria-label="Notifications">
-      <span>🔔</span>
-      <span class="notif-ping-dot" id="adNotifDot"></span>
-    </button>
-    <button type="button" class="top-icon-btn" onclick="navigateToView('ad-settings')" title="Appearance &amp; Settings" aria-label="Settings">
-      <span>🎨</span>
-    </button>
-    
-    <div class="user-profile-pill" onclick="toggleUserDropdown('admin')">
-      <div class="user-avatar-circle" id="adminUserAvatar">AD</div>
-      <div class="user-info-text">
-        <span class="user-name-text" id="adminUserName">Admin</span>
-        <span class="user-role-text">Barangay Admin</span>
-      </div>
-      <span class="dropdown-chevron">▾</span>
-    </div>
-
-    <button class="staff-link" onclick="switchPortal('resident')">Preview Resident</button>
+    <span class="user-chip"><span class="dot"></span><span id="adminUserName">Admin</span></span>
+    <button class="staff-link" onclick="switchPortal('resident')">Preview Resident Portal</button>
+    <button class="staff-link" onclick="logout()">Log Out</button>
   </div>
 </header>
 
 <div class="app-shell">
   <nav class="sidebar" id="sidebar-admin">
-    <div class="sidebar-section-title">MENU</div>
-    <div class="nav-item active" data-view="ad-dashboard" onclick="setView(this,'ad-dashboard')">
-      <span class="nav-icon">📊</span><span class="nav-text">Dashboard</span>
-    </div>
-    <div class="nav-item" data-view="ad-routes" onclick="setView(this,'ad-routes')">
-      <span class="nav-icon">🚛</span><span class="nav-text">Routes</span>
-    </div>
-    <div class="nav-item" data-view="ad-reports" onclick="setView(this,'ad-reports')">
-      <span class="nav-icon">📋</span><span class="nav-text">Reports</span>
-    </div>
-    <div class="nav-item" data-view="ad-notices" onclick="setView(this,'ad-notices')">
-      <span class="nav-icon">📢</span><span class="nav-text">Notices</span>
-    </div>
-    <div class="nav-item" data-view="ad-analytics" onclick="setView(this,'ad-analytics')">
-      <span class="nav-icon">📈</span><span class="nav-text">Analytics</span>
-    </div>
-
-    <div class="sidebar-section-title">GENERAL</div>
-    <div class="nav-item" data-view="ad-settings" onclick="setView(this,'ad-settings')">
-      <span class="nav-icon">⚙️</span><span class="nav-text">Settings</span>
-    </div>
-    <div class="nav-item" onclick="switchPortal('resident')">
-      <span class="nav-icon">👁️</span><span class="nav-text">Resident View</span>
-    </div>
-    <div class="nav-item" onclick="logout()">
-      <span class="nav-icon">🚪</span><span class="nav-text">Log Out</span>
-    </div>
-
-    <div class="sidebar-promo-card">
-      <div class="promo-card-icon">🛡️</div>
-      <div class="promo-card-text">
-        <div class="promo-card-title">Barangay Admin Suite</div>
-        <div class="promo-card-sub">Real-time waste &amp; collection control.</div>
-      </div>
-    </div>
+    <div class="nav-item active" data-view="ad-dashboard" onclick="setView(this,'ad-dashboard')"><span class="nav-icon">📊</span><span class="nav-text">Dashboard</span></div>
+    <div class="nav-item" data-view="ad-routes" onclick="setView(this,'ad-routes')"><span class="nav-icon">🚛</span><span class="nav-text">Routes</span></div>
+    <div class="nav-item" data-view="ad-reports" onclick="setView(this,'ad-reports')"><span class="nav-icon">📋</span><span class="nav-text">Reports</span></div>
+    <div class="nav-item" data-view="ad-notices" onclick="setView(this,'ad-notices')"><span class="nav-icon">📢</span><span class="nav-text">Notices</span></div>
+    <div class="nav-item" data-view="ad-analytics" onclick="setView(this,'ad-analytics')"><span class="nav-icon">📈</span><span class="nav-text">Analytics</span></div>
   </nav>
 
   <main>
@@ -2034,140 +1277,6 @@
         </div>
       </div>
     </section>
-
-    <section class="view" id="view-ad-settings">
-      <div class="settings-page-header">
-        <h2 class="settings-title">Settings</h2>
-        <p class="settings-sub">Your profile, notifications and how SWMS looks.</p>
-      </div>
-
-      <div class="settings-layout-card">
-        <!-- Settings Subnav (Left Pane) -->
-        <div class="settings-subnav">
-          <button type="button" class="settings-subnav-item" onclick="switchSettingsTab('ad', 'profile', this)">
-            <span class="tab-icon">👤</span> Profile
-          </button>
-          <button type="button" class="settings-subnav-item" onclick="switchSettingsTab('ad', 'notifications', this)">
-            <span class="tab-icon">🔔</span> Notifications
-          </button>
-          <button type="button" class="settings-subnav-item active" onclick="switchSettingsTab('ad', 'appearance', this)">
-            <span class="tab-icon">🎨</span> Appearance
-          </button>
-        </div>
-
-        <!-- Settings Content (Right Pane) -->
-        <div class="settings-panel-container">
-          <!-- APPEARANCE PANEL (Active by default, identical to Instagram Reel!) -->
-          <div class="settings-tab-panel active" id="ad-tab-appearance">
-            <div class="panel-header">
-              <h3 class="panel-heading">Appearance</h3>
-              <p class="panel-subtext">The accent re-tints the whole workspace, and is remembered on this device.</p>
-            </div>
-
-            <div class="setting-row">
-              <span class="setting-caption">ACCENT</span>
-              <div class="accent-picker-row">
-                <button type="button" class="accent-picker-btn" data-accent="forest" onclick="setAccent('forest')">
-                  <span class="accent-swatch dot-forest"></span>
-                  <span>Forest</span>
-                </button>
-                <button type="button" class="accent-picker-btn active" data-accent="ocean" onclick="setAccent('ocean')">
-                  <span class="accent-swatch dot-ocean"></span>
-                  <span>Ocean</span>
-                </button>
-                <button type="button" class="accent-picker-btn" data-accent="plum" onclick="setAccent('plum')">
-                  <span class="accent-swatch dot-plum"></span>
-                  <span>Plum</span>
-                </button>
-                <button type="button" class="accent-picker-btn" data-accent="ember" onclick="setAccent('ember')">
-                  <span class="accent-swatch dot-ember"></span>
-                  <span>Ember</span>
-                </button>
-                <button type="button" class="accent-picker-btn" data-accent="midnight" onclick="setAccent('midnight')">
-                  <span class="accent-swatch dot-midnight"></span>
-                  <span>Midnight</span>
-                </button>
-              </div>
-            </div>
-
-            <div class="setting-row">
-              <span class="setting-caption">WEEK STARTS ON</span>
-              <div class="segment-group" id="adWeekStartGroup">
-                <button type="button" class="segment-btn active" onclick="setWeekStart('Sunday', this)">Sunday</button>
-                <button type="button" class="segment-btn" onclick="setWeekStart('Monday', this)">Monday</button>
-              </div>
-            </div>
-
-            <div class="setting-row">
-              <span class="setting-caption">WORKSPACE DENSITY</span>
-              <div class="segment-group" id="adDensityGroup">
-                <button type="button" class="segment-btn active" onclick="setDensity('comfortable', this)">Comfortable</button>
-                <button type="button" class="segment-btn" onclick="setDensity('compact', this)">Compact</button>
-              </div>
-            </div>
-          </div>
-
-          <!-- PROFILE PANEL -->
-          <div class="settings-tab-panel" id="ad-tab-profile">
-            <div class="panel-header">
-              <h3 class="panel-heading">Profile</h3>
-              <p class="panel-subtext">Manage your account information and assigned location.</p>
-            </div>
-            <div class="profile-info-grid">
-              <div class="profile-avatar-card">
-                <div class="large-avatar-circle" id="adProfileBigAvatar">AD</div>
-                <div>
-                  <h4 style="margin:0 0 4px;font-size:16px;" id="adProfileNameDisplay">Admin</h4>
-                  <p style="margin:0;font-size:13px;color:var(--muted);" id="adProfileRoleDisplay">Barangay Administrator</p>
-                </div>
-              </div>
-              <div class="card" style="display:flex;flex-direction:column;gap:14px;">
-                <div>
-                  <label class="field-label">Assigned Jurisdiction</label>
-                  <input type="text" value="All Puroks (1 to 7) — Barangay Panadtalan" readonly style="opacity:0.85;cursor:not-allowed;">
-                </div>
-                <div>
-                  <label class="field-label">System Access Level</label>
-                  <span class="chip chip-bio" style="font-size:12px;">🛡️ Admin Privilege</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- NOTIFICATIONS PANEL -->
-          <div class="settings-tab-panel" id="ad-tab-notifications">
-            <div class="panel-header">
-              <h3 class="panel-heading">Notifications</h3>
-              <p class="panel-subtext">Control alerts, collection sound reminders, and reports updates.</p>
-            </div>
-            <div class="notification-toggles-stack">
-              <label class="toggle-card">
-                <div class="toggle-card-info">
-                  <strong>Collection Day Reminders</strong>
-                  <span>Display banner and notification before collection truck arrives at your Purok.</span>
-                </div>
-                <input type="checkbox" checked onchange="saveNotificationPref('collection', this.checked)">
-              </label>
-              <label class="toggle-card">
-                <div class="toggle-card-info">
-                  <strong>Report Status Updates</strong>
-                  <span>Instant notification when report progresses to Acknowledged, In Progress, or Resolved.</span>
-                </div>
-                <input type="checkbox" checked onchange="saveNotificationPref('report', this.checked)">
-              </label>
-              <label class="toggle-card">
-                <div class="toggle-card-info">
-                  <strong>Barangay Official Announcements</strong>
-                  <span>Receive emergency notices, schedule postponements, and cleanup drive advisories.</span>
-                </div>
-                <input type="checkbox" checked onchange="saveNotificationPref('notices', this.checked)">
-              </label>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  
   </main>
 </div>
 </div>
@@ -2365,263 +1474,6 @@ function syncHeaderHeight(){
 }
 window.addEventListener('load', syncHeaderHeight);
 window.addEventListener('resize', syncHeaderHeight);
-
-// ---- DYNAMIC THEME & ACCENT SYSTEM ("One accent re-tints everything") ----
-function setAccent(name){
-  document.documentElement.setAttribute('data-accent', name);
-  localStorage.setItem('swms_accent', name);
-  
-  // Update all accent buttons
-  document.querySelectorAll('.accent-picker-btn').forEach(btn => {
-    btn.classList.toggle('active', btn.getAttribute('data-accent') === name);
-  });
-  
-  // Show the sleek toast at bottom center matching the video
-  const toast = document.getElementById('accentToast');
-  const toastText = document.getElementById('accentToastText');
-  if (toast && toastText) {
-    const capitalized = name.charAt(0).toUpperCase() + name.slice(1);
-    toastText.textContent = 'Accent set to ' + capitalized;
-    toast.classList.add('show');
-    clearTimeout(window._accentToastTimer);
-    window._accentToastTimer = setTimeout(() => {
-      toast.classList.remove('show');
-    }, 2400);
-  }
-}
-
-// Restore saved accent or default to Ocean
-(function restoreSavedAccent(){
-  const saved = localStorage.getItem('swms_accent') || 'ocean';
-  document.documentElement.setAttribute('data-accent', saved);
-  window.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('.accent-picker-btn').forEach(btn => {
-      btn.classList.toggle('active', btn.getAttribute('data-accent') === saved);
-    });
-  });
-})();
-
-function setWeekStart(day, btn){
-  localStorage.setItem('swms_week_start', day);
-  btn.closest('.segment-group').querySelectorAll('.segment-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  if (typeof showToast === 'function') showToast('Week start set to ' + day);
-}
-
-function setDensity(mode, btn){
-  document.documentElement.setAttribute('data-density', mode);
-  localStorage.setItem('swms_density', mode);
-  btn.closest('.segment-group').querySelectorAll('.segment-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  if (typeof showToast === 'function') showToast('Display density set to ' + mode);
-}
-
-function switchSettingsTab(prefix, tabName, btn){
-  const card = btn.closest('.settings-layout-card');
-  card.querySelectorAll('.settings-subnav-item').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  card.querySelectorAll('.settings-tab-panel').forEach(p => p.classList.remove('active'));
-  const target = document.getElementById(prefix + '-tab-' + tabName);
-  if (target) target.classList.add('active');
-}
-
-function openSettingsView(tabName){
-  closeUserDropdown();
-  const isAdm = window.currentUserRole === 'admin';
-  const portalPrefix = isAdm ? 'ad' : 'res';
-  navigateToView(portalPrefix + '-settings');
-  if (tabName) {
-    const card = document.querySelector('#view-' + portalPrefix + '-settings .settings-layout-card');
-    if (card) {
-      const tabBtn = card.querySelector('.settings-subnav-item:nth-child(' + (tabName === 'profile' ? 1 : tabName === 'notifications' ? 2 : 3) + ')');
-      if (tabBtn) switchSettingsTab(portalPrefix, tabName, tabBtn);
-    }
-  }
-}
-
-function saveNotificationPref(pref, enabled){
-  localStorage.setItem('swms_notif_' + pref, enabled ? '1' : '0');
-  if (typeof showToast === 'function') showToast('Notification preferences updated.');
-}
-
-// Navigate programmatically to any view
-function navigateToView(viewId){
-  const activePortal = document.querySelector('.portal-mode.active') || document.getElementById('portal-resident');
-  const targetNav = activePortal.querySelector('.nav-item[data-view="' + viewId + '"]');
-  if (targetNav) {
-    setView(targetNav, viewId);
-  } else {
-    activePortal.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
-    const target = document.getElementById('view-' + viewId);
-    if (target) target.classList.add('active');
-  }
-}
-
-// ---- COMMAND PALETTE (⌘K / Ctrl+K) ----
-const COMMAND_ITEMS = [
-  { title: 'Purok 1 Schedule', icon: '📍', category: 'Schedule', action: () => { navigateToView('res-schedule'); const s=document.getElementById('purokSelect'); if(s){s.value='0'; s.dispatchEvent(new Event('change'));} } },
-  { title: 'Purok 2 Schedule', icon: '📍', category: 'Schedule', action: () => { navigateToView('res-schedule'); const s=document.getElementById('purokSelect'); if(s){s.value='1'; s.dispatchEvent(new Event('change'));} } },
-  { title: 'Purok 3 Schedule', icon: '📍', category: 'Schedule', action: () => { navigateToView('res-schedule'); const s=document.getElementById('purokSelect'); if(s){s.value='2'; s.dispatchEvent(new Event('change'));} } },
-  { title: 'Purok 4 Schedule', icon: '📍', category: 'Schedule', action: () => { navigateToView('res-schedule'); const s=document.getElementById('purokSelect'); if(s){s.value='3'; s.dispatchEvent(new Event('change'));} } },
-  { title: 'Purok 5 Schedule', icon: '📍', category: 'Schedule', action: () => { navigateToView('res-schedule'); const s=document.getElementById('purokSelect'); if(s){s.value='4'; s.dispatchEvent(new Event('change'));} } },
-  { title: 'Purok 6 Schedule', icon: '📍', category: 'Schedule', action: () => { navigateToView('res-schedule'); const s=document.getElementById('purokSelect'); if(s){s.value='5'; s.dispatchEvent(new Event('change'));} } },
-  { title: 'Purok 7 Schedule', icon: '📍', category: 'Schedule', action: () => { navigateToView('res-schedule'); const s=document.getElementById('purokSelect'); if(s){s.value='6'; s.dispatchEvent(new Event('change'));} } },
-  { title: 'Biodegradable Guide', icon: '🍃', category: 'Guide', action: () => { navigateToView('res-guide'); } },
-  { title: 'Non-biodegradable Guide', icon: '🗑️', category: 'Guide', action: () => { navigateToView('res-guide'); } },
-  { title: 'Recyclables Guide', icon: '♻️', category: 'Guide', action: () => { navigateToView('res-guide'); } },
-  { title: 'Special / Hazardous Waste', icon: '☣️', category: 'Guide', action: () => { navigateToView('res-guide'); } },
-  { title: 'Report an Uncollected Pile', icon: '⚠️', category: 'Report', action: () => { navigateToView('res-report'); document.getElementById('repName')?.focus(); } },
-  { title: 'Barangay Announcements', icon: '📢', category: 'Notices', action: () => { navigateToView('res-notices'); } },
-  { title: 'Theme: Ocean (Cobalt Blue)', icon: '🌊', category: 'Appearance', action: () => { setAccent('ocean'); } },
-  { title: 'Theme: Forest (Emerald Green)', icon: '🌲', category: 'Appearance', action: () => { setAccent('forest'); } },
-  { title: 'Theme: Plum (Royal Violet)', icon: '🍇', category: 'Appearance', action: () => { setAccent('plum'); } },
-  { title: 'Theme: Ember (Warm Sunset)', icon: '🍂', category: 'Appearance', action: () => { setAccent('ember'); } },
-  { title: 'Theme: Midnight (Titanium Slate)', icon: '🖤', category: 'Appearance', action: () => { setAccent('midnight'); } },
-  { title: 'Open Settings & Appearance', icon: '⚙️', category: 'Settings', action: () => { openSettingsView('appearance'); } },
-  { title: 'Chat with Waste AI', icon: '💬', category: 'Help', action: () => { toggleChat(); } }
-];
-
-function openCommandPalette(){
-  const p = document.getElementById('cmdPalette');
-  const input = document.getElementById('cmdInput');
-  if (p) {
-    p.style.display = 'flex';
-    if (input) {
-      input.value = '';
-      filterCommandPalette('');
-      setTimeout(() => input.focus(), 50);
-    }
-  }
-}
-
-function closeCommandPalette(){
-  const p = document.getElementById('cmdPalette');
-  if (p) p.style.display = 'none';
-}
-
-function filterCommandPalette(q){
-  const list = document.getElementById('cmdResultsList');
-  if (!list) return;
-  const filter = (q || '').trim().toLowerCase();
-  const matched = COMMAND_ITEMS.filter(it => 
-    it.title.toLowerCase().includes(filter) || it.category.toLowerCase().includes(filter)
-  );
-
-  list.innerHTML = matched.length ? matched.map((it, idx) => `
-    <div class="cmd-item${idx === 0 ? ' selected' : ''}" onclick="COMMAND_ITEMS[${COMMAND_ITEMS.indexOf(it)}].action(); closeCommandPalette();">
-      <span class="cmd-item-icon">${it.icon}</span>
-      <span style="font-weight:600;">${it.title}</span>
-      <span class="cmd-item-tag">${it.category}</span>
-    </div>
-  `).join('') : '<div style="padding:16px;text-align:center;color:var(--muted);font-size:13px;">No commands or places found.</div>';
-}
-
-// Keyboard shortcuts for Command Palette (⌘K / Ctrl+K and ESC)
-window.addEventListener('keydown', (e) => {
-  if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
-    e.preventDefault();
-    const p = document.getElementById('cmdPalette');
-    if (p && p.style.display !== 'none') closeCommandPalette();
-    else openCommandPalette();
-  }
-  if (e.key === 'Escape') {
-    closeCommandPalette();
-    closeNotificationPopover();
-    closeUserDropdown();
-  }
-});
-
-// ---- DROPDOWN POPOVERS ----
-function toggleNotificationPopover(portal){
-  const popover = document.getElementById('notificationPopover');
-  if (!popover) return;
-  const isHidden = popover.style.display === 'none';
-  closeUserDropdown();
-  if (isHidden) {
-    populateNotificationList();
-    popover.style.display = 'block';
-  } else {
-    popover.style.display = 'none';
-  }
-}
-
-function closeNotificationPopover(){
-  const popover = document.getElementById('notificationPopover');
-  if (popover) popover.style.display = 'none';
-}
-
-function clearNotificationPopover(){
-  closeNotificationPopover();
-  const dot1 = document.getElementById('resNotifDot');
-  const dot2 = document.getElementById('adNotifDot');
-  if (dot1) dot1.style.display = 'none';
-  if (dot2) dot2.style.display = 'none';
-}
-
-function populateNotificationList(){
-  const list = document.getElementById('notificationList');
-  if (!list) return;
-  const nextDate = document.getElementById('nextDateText')?.textContent || '';
-  const nextType = document.getElementById('nextType')?.textContent || '';
-  
-  list.innerHTML = `
-    <div class="dropdown-notif-item">
-      <div class="dropdown-notif-title">🚛 Upcoming Collection</div>
-      <div style="font-size:12px;color:var(--ink-secondary);">${nextType ? nextType + ' collection scheduled for ' + nextDate : 'Regular collection per Purok schedule active.'}</div>
-      <div class="dropdown-notif-time">Today • Panadtalan SWMS</div>
-    </div>
-    <div class="dropdown-notif-item">
-      <div class="dropdown-notif-title">📢 Barangay Advisory</div>
-      <div style="font-size:12px;color:var(--ink-secondary);">Please ensure proper segregation of recyclable containers before pickup.</div>
-      <div class="dropdown-notif-time">Official Bulletin</div>
-    </div>
-  `;
-}
-
-function toggleUserDropdown(portal){
-  const popover = document.getElementById('userMenuPopover');
-  if (!popover) return;
-  const isHidden = popover.style.display === 'none';
-  closeNotificationPopover();
-  popover.style.display = isHidden ? 'block' : 'none';
-}
-
-function closeUserDropdown(){
-  const popover = document.getElementById('userMenuPopover');
-  if (popover) popover.style.display = 'none';
-}
-
-// Click outside popovers to close
-window.addEventListener('click', (e) => {
-  if (!e.target.closest('.user-profile-pill') && !e.target.closest('#userMenuPopover')) {
-    closeUserDropdown();
-  }
-  if (!e.target.closest('.top-icon-btn') && !e.target.closest('#notificationPopover')) {
-    closeNotificationPopover();
-  }
-});
-
-// Update Profile Avatar & Names across the app
-function updateUserPills(displayName, role, purok){
-  const initials = (displayName || 'Resident').split(' ').map(w => w[0]).join('').substring(0, 2).toUpperCase() || 'RP';
-  
-  ['residentUserAvatar', 'adminUserAvatar', 'userMenuAvatar', 'resProfileBigAvatar', 'adProfileBigAvatar'].forEach(id => {
-    const el = document.getElementById(id);
-    if (el) el.textContent = initials;
-  });
-
-  const subText = role === 'admin' ? 'Barangay Admin' : (purok ? 'Resident • ' + purok : 'Barangay Resident');
-  ['residentUserSub', 'userMenuSub', 'resProfileRoleDisplay'].forEach(id => {
-    const el = document.getElementById(id);
-    if (el) el.textContent = subText;
-  });
-
-  ['resProfileNameDisplay', 'adProfileNameDisplay', 'userMenuName'].forEach(id => {
-    const el = document.getElementById(id);
-    if (el) el.textContent = displayName;
-  });
-}
-
 </script>
 
 <script type="module">
@@ -3983,58 +2835,5 @@ window.openLightbox = openLightbox;
 window.closeLightbox = closeLightbox;
 window.logout = logout;
 </script>
-
-<!-- ================= FLOATING ACCENT TOAST (Exactly as in Video) ================= -->
-<div class="accent-toast-pill" id="accentToast">
-  <span class="accent-toast-dot"></span>
-  <span id="accentToastText">Accent set to Ocean</span>
-</div>
-
-<!-- ================= COMMAND PALETTE (⌘K / Ctrl+K) ================= -->
-<div class="cmd-palette-backdrop" id="cmdPalette" style="display:none;" onclick="if(event.target===this)closeCommandPalette()">
-  <div class="cmd-palette-box">
-    <div class="cmd-input-bar">
-      <span class="cmd-icon">🔍</span>
-      <input type="text" id="cmdInput" placeholder="Type a command or search (e.g. Purok 1, Schedule, Ocean, Guide)..." oninput="filterCommandPalette(this.value)">
-      <button type="button" class="cmd-esc-btn" onclick="closeCommandPalette()">ESC</button>
-    </div>
-    <div class="cmd-results-list" id="cmdResultsList"></div>
-  </div>
-</div>
-
-<!-- ================= NOTIFICATION POPOVER DROPDOWN ================= -->
-<div class="dropdown-popover" id="notificationPopover" style="display:none;">
-  <div class="dropdown-header">
-    <h4>🔔 Notifications</h4>
-    <button type="button" class="clear-notif-btn" onclick="clearNotificationPopover()">Dismiss</button>
-  </div>
-  <div class="dropdown-list" id="notificationList"></div>
-</div>
-
-<!-- ================= USER PROFILE DROPDOWN POPOVER ================= -->
-<div class="dropdown-popover user-dropdown-popover" id="userMenuPopover" style="display:none;">
-  <div class="user-dropdown-head">
-    <div class="user-avatar-circle" id="userMenuAvatar">RP</div>
-    <div>
-      <strong id="userMenuName" style="font-size:13px;display:block;">Resident</strong>
-      <span style="font-size:11px;color:var(--muted);" id="userMenuSub">Barangay Resident</span>
-    </div>
-  </div>
-  <div class="dropdown-divider"></div>
-  <button type="button" class="dropdown-menu-item" onclick="openSettingsView('profile')">
-    <span>👤</span> Profile Details
-  </button>
-  <button type="button" class="dropdown-menu-item" onclick="openSettingsView('appearance')">
-    <span>🎨</span> Appearance &amp; Accent
-  </button>
-  <button type="button" class="dropdown-menu-item" onclick="openSettingsView('notifications')">
-    <span>🔔</span> Notification Preferences
-  </button>
-  <div class="dropdown-divider"></div>
-  <button type="button" class="dropdown-menu-item item-danger" onclick="logout()">
-    <span>🚪</span> Log Out
-  </button>
-</div>
-
 </body>
 </html>
